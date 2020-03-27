@@ -5,13 +5,17 @@
   
 
   
-  <title>Archives | Ivan Xun Ouyang`s Blog</title>
+  <title>Parellel Computing1 | Ivan Xun Ouyang`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Ivan Xun Ouyang&#96;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="#Parellel Computing 1 First of all, let&#96;s take a look at 2 concepts:Work and Span:Let us assume the total work is a Directed Acyclic Graph.Work: The total work that will be executed by all the process">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Parellel Computing1">
+<meta property="og:url" content="http://yoursite.com/2020/03/26/Parellel%20Computing1/index.html">
 <meta property="og:site_name" content="Ivan Xun Ouyang&#96;s Blog">
+<meta property="og:description" content="#Parellel Computing 1 First of all, let&#96;s take a look at 2 concepts:Work and Span:Let us assume the total work is a Directed Acyclic Graph.Work: The total work that will be executed by all the process">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-27T02:50:12.934Z">
+<meta property="article:modified_time" content="2020-03-27T02:50:12.934Z">
 <meta property="article:author" content="Ivan Xun Ouyang">
 <meta name="twitter:card" content="summary">
   
@@ -62,78 +66,58 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/03/26/Parellel%20Computing1/" class="archive-article-date">
-  <time datetime="2020-03-27T02:50:12.934Z" itemprop="datePublished">Mar 26</time>
+        <section id="main"><article id="post-Parellel Computing1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/26/Parellel%20Computing1/" class="article-date">
+  <time datetime="2020-03-27T02:50:12.934Z" itemprop="datePublished">2020-03-26</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/26/Parellel%20Computing1/">Parellel Computing1</a>
+    <h1 class="article-title" itemprop="name">
+      Parellel Computing1
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/03/25/Lidar-Data-PostProcessing1/" class="archive-article-date">
-  <time datetime="2020-03-26T03:48:25.000Z" itemprop="datePublished">Mar 25</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/25/Lidar-Data-PostProcessing1/">Lidar Data PostProcessing1</a>
-    </h1>
-  
+        <p>#Parellel Computing 1</p>
+<p>First of all, let`s take a look at 2 concepts:<br>Work and Span:<br>Let us assume the total work is a Directed Acyclic Graph.<br>Work: The total work that will be executed by all the processors, which is number of edges of the DAG.</p>
+<p>Span: sometime we call it depth, is the length of the longest path of the<br>DAG(critical path).</p>
+<p>Brent<code>s Theorem:
+Brent</code>s theorem is the theorem to give the upper bound and lower bound of the time that expires between the start of the computation and its end. Let us<br>denote it as Tp, denote total work as W, Span as D, number of processors as N.</p>
+<p>Then we can easily have:<br>Tp =  ∑(1 to D)(floor(Wi-1)/P) + 1<br>based on the properties of ceiling and floor operation, we have<br>max(D, ceiling(W/N)) &lt;= Tp &lt;= (W-D)/N + D</p>
+<p>par-for loop:<br>(parallel for loop, sometimes people call it for-any loop or for-all loop)<br>All iterations are independent to each other.</p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/03/22/hello-world/" class="archive-article-date">
-  <time datetime="2020-03-22T04:11:21.596Z" itemprop="datePublished">Mar 22</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/22/hello-world/">Hello World</a>
-    </h1>
-  
-
-    </header>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/26/Parellel%20Computing1/" data-id="ck89lctmf0000r6sj8pyf4jsr" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/03/25/Lidar-Data-PostProcessing1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Lidar Data PostProcessing1</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         
