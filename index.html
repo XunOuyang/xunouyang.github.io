@@ -64,10 +64,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Parellel Computing1" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Parallel Computing1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/03/26/Parellel%20Computing1/" class="article-date">
-  <time datetime="2020-03-27T02:50:12.934Z" itemprop="datePublished">2020-03-26</time>
+    <a href="/2020/03/26/Parallel%20Computing1/" class="article-date">
+  <time datetime="2020-03-27T03:32:57.549Z" itemprop="datePublished">2020-03-26</time>
 </a>
     
   </div>
@@ -78,7 +78,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/26/Parellel%20Computing1/">Parellel Computing1</a>
+      <a class="article-title" href="/2020/03/26/Parallel%20Computing1/">Parallel Computing1</a>
     </h1>
   
 
@@ -86,18 +86,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#Parellel Computing 1</p>
-<p>First of all, let`s take a look at 2 concepts:<br>Work and Span:<br>Let us assume the total work is a Directed Acyclic Graph.<br>Work: The total work that will be executed by all the processors, which is number of edges of the DAG.</p>
-<p>Span: sometime we call it depth, is the length of the longest path of the<br>DAG(critical path).</p>
-<p>Brent<code>s Theorem:
-Brent</code>s theorem is the theorem to give the upper bound and lower bound of the time that expires between the start of the computation and its end. Let us<br>denote it as Tp, denote total work as W, Span as D, number of processors as N.</p>
+        <p>First of all, let`s take a look at 2 concepts:<br>Work and Span:<br>Let us assume the total work is a Directed Acyclic Graph.<br>Work: The total work that will be executed by all the processors, which is number of edges of the DAG.</p>
+<p>Span: sometime we call it depth, is the length of the longest path of the<br>DAG(critical path).<br><img src="../\_images/Parallel_Computing1/work\_and\_span.jpg"/></p>
+<p>Brent`s Theorem:<br>Brent`s theorem is the theorem to give the upper bound and lower bound of the time that expires between the start of the computation and its end. Let us<br>denote it as Tp, denote total work as W, Span as D, number of processors as N.</p>
 <p>Then we can easily have:<br>Tp =  ∑(1 to D)(floor(Wi-1)/P) + 1<br>based on the properties of ceiling and floor operation, we have<br>max(D, ceiling(W/N)) &lt;= Tp &lt;= (W-D)/N + D</p>
 <p>par-for loop:<br>(parallel for loop, sometimes people call it for-any loop or for-all loop)<br>All iterations are independent to each other.</p>
+<p><img src="par-for.JPG" alt="Alt Text"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/26/Parellel%20Computing1/" data-id="ck89lctmf0000r6sj8pyf4jsr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/03/26/Parallel%20Computing1/" data-id="ck89lo6qo00021xsj1h8jd058" class="article-share-link">Share</a>
       
       
     </footer>
@@ -223,7 +222,7 @@ Brent</code>s theorem is the theorem to give the upper bound and lower bound of 
       <ul>
         
           <li>
-            <a href="/2020/03/26/Parellel%20Computing1/">Parellel Computing1</a>
+            <a href="/2020/03/26/Parallel%20Computing1/">Parallel Computing1</a>
           </li>
         
           <li>
