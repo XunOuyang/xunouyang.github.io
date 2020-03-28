@@ -5,22 +5,23 @@
   
 
   
-  <title>Parallel Computing1 | Ivan Xun Ouyang`s Blog</title>
+  <title>Parallel Computing 1 | Ivan Xun Ouyang`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="First of all, let&#96;s take a look at 2 concepts:Work and Span:Let us assume the total work is a Directed Acyclic Graph.Work: The total work that will be executed by all the processors, which is number o">
+  <meta name="description" content="In order to understand how parallel computing works, we have to understand a fewFirst of all, let&#96;s take a look at 2 concepts:Work and Span: Work: The total work that will be executed by all the proce">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Parallel Computing1">
-<meta property="og:url" content="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/03/27/Parallel%20Computing1/index.html">
+<meta property="og:title" content="Parallel Computing 1">
+<meta property="og:url" content="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/03/25/Parallel%20Computing1/index.html">
 <meta property="og:site_name" content="Ivan Xun Ouyang&#96;s Blog">
-<meta property="og:description" content="First of all, let&#96;s take a look at 2 concepts:Work and Span:Let us assume the total work is a Directed Acyclic Graph.Work: The total work that will be executed by all the processors, which is number o">
+<meta property="og:description" content="In order to understand how parallel computing works, we have to understand a fewFirst of all, let&#96;s take a look at 2 concepts:Work and Span: Work: The total work that will be executed by all the proce">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/03/27/Parallel%20Computing1/images/ParallelComputing1/work_and_span.jpg">
-<meta property="og:image" content="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/03/27/Parallel%20Computing1/par_for.JPG">
-<meta property="article:published_time" content="2020-03-28T00:59:31.405Z">
-<meta property="article:modified_time" content="2020-03-28T02:04:24.947Z">
+<meta property="og:image" content="https://github.com/images/Parallel%20Computing1/work_and_span.jpg">
+<meta property="og:image" content="https://github.com/images/Parallel%20Computing1/brent_theorem.jpg">
+<meta property="og:image" content="https://github.com/images/Parallel%20Computing1/par_for.jpg">
+<meta property="article:published_time" content="2020-03-26T03:48:25.000Z">
+<meta property="article:modified_time" content="2020-03-28T03:19:02.459Z">
 <meta property="article:author" content="Ivan Xun Ouyang">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/03/27/Parallel%20Computing1/images/ParallelComputing1/work_and_span.jpg">
+<meta name="twitter:image" content="https://github.com/images/Parallel%20Computing1/work_and_span.jpg">
   
     <link rel="alternate" href="../../../../atom.xml" title="Ivan Xun Ouyang`s Blog" type="application/atom+xml">
   
@@ -72,9 +73,13 @@
         <section id="main"><article id="post-Parallel Computing1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="" class="article-date">
-  <time datetime="2020-03-28T00:59:31.405Z" itemprop="datePublished">2020-03-27</time>
+  <time datetime="2020-03-26T03:48:25.000Z" itemprop="datePublished">2020-03-25</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="../../../../categories/Parallel-Computing/">Parallel Computing</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -83,7 +88,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Parallel Computing1
+      Parallel Computing 1
     </h1>
   
 
@@ -91,18 +96,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>First of all, let`s take a look at 2 concepts:<br>Work and Span:<br>Let us assume the total work is a Directed Acyclic Graph.<br>Work: The total work that will be executed by all the processors, which is number of edges of the DAG.</p>
-<p>Span: sometime we call it depth, is the length of the longest path of the<br>DAG(critical path).<br><img src="images/ParallelComputing1/work_and_span.jpg"/></p>
-<p>Brent`s Theorem:<br>Brent`s theorem is the theorem to give the upper bound and lower bound of the time that expires between the start of the computation and its end. Let us<br>denote it as Tp, denote total work as W, Span as D, number of processors as N.</p>
+        <p>In order to understand how parallel computing works, we have to understand a few<br>First of all, let`s take a look at 2 concepts:<br>Work and Span:</p>
+<p>Work: The total work that will be executed by all the processors.<br>If we consider the whole process that a computer finish all the tasks as a Directed Acyclic Graph, then work is the total number of all edges of the DAG.</p>
+<p>Span: sometime we call it depth, is the length of the longest path of the<br>DAG(critical path). </p>
+<p>See the picture below, work == 21, span == 8<br><img src="/images/Parallel Computing1/work_and_span.jpg" width="400" hegiht="400"></p>
+<p>Brent`s Theorem:<br>Brent`s theorem is the theorem to give the upper bound and lower bound of the time that expires between the start of the computation and its end. Let us<br>denote it as Tp, denote total work as W, Span as D, number of processors as N.<br><img src="/images/Parallel Computing1/brent_theorem.jpg" width="400" hegiht="400"></p>
 <p>Then we can easily have:<br>Tp =  ∑(1 to D)(floor(Wi-1)/P) + 1<br>based on the properties of ceiling and floor operation, we have<br>max(D, ceiling(W/N)) &lt;= Tp &lt;= (W-D)/N + D</p>
 <p>par-for loop:<br>(parallel for loop, sometimes people call it for-any loop or for-all loop)<br>All iterations are independent to each other.</p>
-<p><img src="par_for.JPG" alt="Alt Text"></p>
-<p>aaaa</p>
+<img src="/images/Parallel Computing1/par_for.jpg" width="400" height="400"/>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/03/27/Parallel%20Computing1/" data-id="ck8az0g7r0001d7sjfj0qhd22" class="article-share-link">Share</a>
+      <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/03/25/Parallel%20Computing1/" data-id="ck8az0g7r0001d7sjfj0qhd22" class="article-share-link">Share</a>
       
       
     </footer>
@@ -111,11 +118,15 @@
     
 <nav id="article-nav">
   
-  
-    <a href="../hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+    <a href="../Lidar-Data-PostProcessing1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Lidar Data PostProcessing1
+        
+      </div>
     </a>
+  
   
 </nav>
 
@@ -127,12 +138,33 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Parallel-Computing/">Parallel Computing</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Autonomous-Driving/" rel="tag">Autonomous Driving</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="../../../../tags/Autonomous-Driving/" style="font-size: 10px;">Autonomous Driving</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -151,15 +183,15 @@
       <ul>
         
           <li>
-            <a href="">Parallel Computing1</a>
+            <a href="../../27/hello-world/">Hello World</a>
           </li>
         
           <li>
-            <a href="../hello-world/">Hello World</a>
+            <a href="../Lidar-Data-PostProcessing1/">Lidar Data PostProcessing1</a>
           </li>
         
           <li>
-            <a href="../../25/Lidar-Data-PostProcessing1/">Lidar Data PostProcessing1</a>
+            <a href="">Parallel Computing 1</a>
           </li>
         
       </ul>
