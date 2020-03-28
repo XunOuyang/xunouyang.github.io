@@ -87,7 +87,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>First of all, let`s take a look at 2 concepts:<br>Work and Span:<br>Let us assume the total work is a Directed Acyclic Graph.<br>Work: The total work that will be executed by all the processors, which is number of edges of the DAG.</p>
-<p>Span: sometime we call it depth, is the length of the longest path of the<br>DAG(critical path).<br><img src="_images/ParallelComputing1/work_and_span.jpg"/></p>
+<p>Span: sometime we call it depth, is the length of the longest path of the<br>DAG(critical path).<br><img src="images/ParallelComputing1/work_and_span.jpg"/></p>
 <p>Brent`s Theorem:<br>Brent`s theorem is the theorem to give the upper bound and lower bound of the time that expires between the start of the computation and its end. Let us<br>denote it as Tp, denote total work as W, Span as D, number of processors as N.</p>
 <p>Then we can easily have:<br>Tp =  ∑(1 to D)(floor(Wi-1)/P) + 1<br>based on the properties of ceiling and floor operation, we have<br>max(D, ceiling(W/N)) &lt;= Tp &lt;= (W-D)/N + D</p>
 <p>par-for loop:<br>(parallel for loop, sometimes people call it for-any loop or for-all loop)<br>All iterations are independent to each other.</p>
