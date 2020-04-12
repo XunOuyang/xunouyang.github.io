@@ -7,18 +7,18 @@
   
   <title>Parallel Computing 1 | Ivan Xun Ouyang`s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="In order to understand how parallel computing works, we have to understand a fewFirst of all, let&#96;s take a look at 2 concepts:Work and Span: Work: The total work that will be executed by all the proce">
+  <meta name="description" content="In order to understand how parallel computing works, we have to understand a few concepts.A multithreaded computation can be represetned by a Directed Acyclic Graph of vertices. Each vertex represents">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Parallel Computing 1">
 <meta property="og:url" content="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/03/25/Parallel%20Computing1/index.html">
 <meta property="og:site_name" content="Ivan Xun Ouyang&#96;s Blog">
-<meta property="og:description" content="In order to understand how parallel computing works, we have to understand a fewFirst of all, let&#96;s take a look at 2 concepts:Work and Span: Work: The total work that will be executed by all the proce">
+<meta property="og:description" content="In order to understand how parallel computing works, we have to understand a few concepts.A multithreaded computation can be represetned by a Directed Acyclic Graph of vertices. Each vertex represents">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://github.com/images/Parallel%20Computing1/work_and_span.jpg">
 <meta property="og:image" content="https://github.com/images/Parallel%20Computing1/brent_theorem.jpg">
 <meta property="og:image" content="https://github.com/images/Parallel%20Computing1/par_for.jpg">
 <meta property="article:published_time" content="2020-03-26T03:48:25.000Z">
-<meta property="article:modified_time" content="2020-03-28T03:19:02.459Z">
+<meta property="article:modified_time" content="2020-03-30T02:14:37.919Z">
 <meta property="article:author" content="Ivan Xun Ouyang">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/images/Parallel%20Computing1/work_and_span.jpg">
@@ -96,8 +96,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>In order to understand how parallel computing works, we have to understand a few<br>First of all, let`s take a look at 2 concepts:<br>Work and Span:</p>
-<p>Work: The total work that will be executed by all the processors.<br>If we consider the whole process that a computer finish all the tasks as a Directed Acyclic Graph, then work is the total number of all edges of the DAG.</p>
+        <p>In order to understand how parallel computing works, we have to understand a few concepts.<br>A multithreaded computation can be represetned by a Directed Acyclic Graph of vertices. Each vertex represents the executtion of an instruction.<br>First of all, let`s take a look at 2 concepts:<br>Cost model: Work and Span:</p>
+<h5 id="Work"><a href="#Work" class="headerlink" title="Work"></a>Work</h5><p>The total work that will be executed by all the processors.<br>If we consider the whole process that a computer finish all the tasks as a Directed Acyclic Graph, then work is the total number of all vertices of the DAG.</p>
 <p>Span: sometime we call it depth, is the length of the longest path of the<br>DAG(critical path). </p>
 <p>See the picture below, work == 21, span == 8<br><img src="/images/Parallel Computing1/work_and_span.jpg" width="400" hegiht="400"></p>
 <p>Brent`s Theorem:<br>Brent`s theorem is the theorem to give the upper bound and lower bound of the time that expires between the start of the computation and its end. Let us<br>denote it as Tp, denote total work as W, Span as D, number of processors as N.<br><img src="/images/Parallel Computing1/brent_theorem.jpg" width="400" hegiht="400"></p>
@@ -105,6 +105,7 @@
 <p>par-for loop:<br>(parallel for loop, sometimes people call it for-any loop or for-all loop)<br>All iterations are independent to each other.</p>
 <img src="/images/Parallel Computing1/par_for.jpg" width="400" height="400"/>
 
+<p>The DAG above shows how does a offline scheduling problem works. In reality, we might don`t have full knowledge of the DAG. Instead, the DAG unfolds as we run the program. Futhermore, we are interested in not only minimizing the length of the schedule but also the work and time it takes to compute the schedule. These 2 conditions defin the online scheduling problem.</p>
 
       
     </div>
@@ -141,30 +142,16 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Parallel-Computing/">Parallel Computing</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Autonomous-Driving/">Autonomous Driving</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Parallel-Computing/">Parallel Computing</a></li></ul>
     </div>
   </div>
 
 
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Autonomous-Driving/" rel="tag">Autonomous Driving</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Concurrent-Programming/" rel="tag">Concurrent Programming</a></li></ul>
-    </div>
-  </div>
-
 
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="../../../../tags/Autonomous-Driving/" style="font-size: 10px;">Autonomous Driving</a> <a href="../../../../tags/Concurrent-Programming/" style="font-size: 10px;">Concurrent Programming</a>
-    </div>
-  </div>
-
   
     
   <div class="widget-wrap">
@@ -183,11 +170,11 @@
       <ul>
         
           <li>
-            <a href="../../28/Parallel%20Computing%202/">Multi-Threading in Python</a>
+            <a href="../../29/Parallel%20Computing%202/">Parallel Computing 2</a>
           </li>
         
           <li>
-            <a href="../../28/Multi-Threading%20in%20Python/">Multi-Threading in Python</a>
+            <a href="../../28/Multi-Threading%20in%20Python/">Multi Threading in Python</a>
           </li>
         
           <li>
