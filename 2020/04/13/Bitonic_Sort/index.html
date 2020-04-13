@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Bitonic_Sort | Ivan Xun Ouyang`s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="双调排序 Bitonic Sort双调排序是并行计算里面一个非常重要而且常见的应用。其思想跟归并排序一样，都是用了分治的思想。为什么它叫做双调排序呢？因为Bitonic Sort 会先将一个数列排序成为前半段单调递增，后半段单调递减的这么一个序列（中间过渡使用），这样一个前半段单调递增，后半段单调递减的序列，我们又把它叫做Bitonic sequence（双调序列）。 具体实现Bitonic So">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bitonic_Sort">
+<meta property="og:url" content="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/04/13/Bitonic_Sort/index.html">
+<meta property="og:site_name" content="Ivan Xun Ouyang&#96;s Blog">
+<meta property="og:description" content="双调排序 Bitonic Sort双调排序是并行计算里面一个非常重要而且常见的应用。其思想跟归并排序一样，都是用了分治的思想。为什么它叫做双调排序呢？因为Bitonic Sort 会先将一个数列排序成为前半段单调递增，后半段单调递减的这么一个序列（中间过渡使用），这样一个前半段单调递增，后半段单调递减的序列，我们又把它叫做Bitonic sequence（双调序列）。 具体实现Bitonic So">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/images/Bitonic_Sort/BitonicSort1.svg.png">
+<meta property="article:published_time" content="2020-04-13T04:33:27.003Z">
+<meta property="article:modified_time" content="2020-04-13T04:33:27.015Z">
+<meta property="article:author" content="Ivan Xun Ouyang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/images/Bitonic_Sort/BitonicSort1.svg.png">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="Ivan Xun Ouyang`s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">Ivan Xun Ouyang`s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/XunOuyang/xunouyang.github.io/blob/master"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Bitonic_Sort" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2020-04-13T04:33:27.003Z" itemprop="datePublished">2020-04-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Bitonic_Sort
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="双调排序-Bitonic-Sort"><a href="#双调排序-Bitonic-Sort" class="headerlink" title="双调排序 Bitonic Sort"></a>双调排序 Bitonic Sort</h3><p>双调排序是并行计算里面一个非常重要而且常见的应用。其思想跟归并排序一样，都是用了分治的思想。<br>为什么它叫做双调排序呢？因为Bitonic Sort 会先将一个数列排序成为前半段单调递增，后半段单调递减<br>的这么一个序列（中间过渡使用），这样一个前半段单调递增，后半段单调递减的序列，我们又把它叫做Bitonic sequence（双调序列）。</p>
+<p>具体实现Bitonic Sort的操作如下：<br>下图所示是一个Bitonic Sort的示意图：</p>
+<img src="/images/Bitonic_Sort/BitonicSort1.svg.png" width="800" hegiht="600">
+
+
+
+<ol>
+<li>先将任意序列变为双调序列。<br>假设有一个长为n的序列，n = 2 ^ k，那么，我们将其两两分组，假设n = 16，如下图所示，为了便于理解，我们假设数组从nums[1] 到nums[16]（这一点跟C/C++/Python 数组的起始index不同，只是为了方便）</li>
+</ol>
+<p>我们先进行第一步，那么一共有8组，所有奇数组的数字，比如 nums[1] 和 nums[2]（第一组）, 又或者 nums[5] 和nums[6]（第三组）等等，进行两两比较，比较的结果是，小的在前，大的在后。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if nums[1] &gt; nums[2]:</span><br><span class="line">    nums[1], nums[2] &#x3D; nums[2], nums[1]</span><br></pre></td></tr></table></figure>
+<p>同理，所有偶数组的数字，比如nums[3] 和 nums[4]，他们比较的结果相反，大的在上，小的在下。如此一来，nums[1], nums[2], nums[3],nums[4] 这4个数字就形成了一个bitonic sequence。</p>
+<p>第二步，此时，我们将前面一步的8组结果，进行两两合并，成为4组数据，每一组里面呢，第一个数字跟第三个数字比较，第二个数字跟第四个数字比。如果是奇数组，那么依然是大的放到后面，小的数字放到前面。偶数组，大的在前，小的在后。<br>这样还不算完，第二步分成了两个部分，比较完了，nums[1]和nums[3]，nums[2]和nums[4]，我们还需要将nums[1]和nums[2]，nums[3]和nums[4] 再次进行小组比较。如此一来，第一组（nums[1]，nums[2],nums[3],nums[4]就成为了一个生序序列，而第二组成为了一个降序序列。</p>
+<p>第三步，与前一步雷同，需要将4组数据进行两两合并，此时只有两个大组。</p>
+<p>第四步，与前一步依然雷同，只是由于只有一组数据了，我们所做的，就是将一大组bitonic sequence进行梳理，整理成为一个升序序列。</p>
+<p>Bitonic sort 的Python实现:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">def bitonic_sort(up: bool, x: Sequence[int]) -&gt; List[int]:</span><br><span class="line">    &quot;&quot;&quot;Bitonic sort.</span><br><span class="line"></span><br><span class="line">    Args:</span><br><span class="line">      up: ascending if &#39;&#39;up&#39;&#39; is true, and decreasing otherwise.</span><br><span class="line">      x: A sequence of integers.</span><br><span class="line"></span><br><span class="line">    Returns:</span><br><span class="line">      Sorted sequence of integers.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    if len(x) &lt;&#x3D; 1:</span><br><span class="line">        return x</span><br><span class="line">    else: </span><br><span class="line">        first &#x3D; bitonic_sort(True, x[:len(x) &#x2F;&#x2F; 2])</span><br><span class="line">        second &#x3D; bitonic_sort(False, x[len(x) &#x2F;&#x2F; 2:])</span><br><span class="line">        return bitonic_merge(up, first + second)</span><br><span class="line"></span><br><span class="line">def bitonic_merge(up: bool, x) -&gt; List[int]: </span><br><span class="line">    # Assume input x is bitonic, and sorted list is returned </span><br><span class="line">    if len(x) &#x3D;&#x3D; 1:</span><br><span class="line">        return x</span><br><span class="line">    else:</span><br><span class="line">        bitonic_compare(up, x)</span><br><span class="line">        first &#x3D; bitonic_merge(up, x[:len(x) &#x2F;&#x2F; 2])</span><br><span class="line">        second &#x3D; bitonic_merge(up, x[len(x) &#x2F;&#x2F; 2:])</span><br><span class="line">        return first + second</span><br><span class="line"></span><br><span class="line">def bitonic_compare(up: bool, x) -&gt; None:</span><br><span class="line">    dist &#x3D; len(x) &#x2F;&#x2F; 2</span><br><span class="line">    for i in range(dist):</span><br><span class="line">        if (x[i] &gt; x[i + dist]) &#x3D;&#x3D; up:</span><br><span class="line">            x[i], x[i + dist] &#x3D; x[i + dist], x[i]  # Swap</span><br></pre></td></tr></table></figure>
+
+
+<p>那么，Bitonic Sort 的时间复杂度和空间复杂度分别都是什么样的呢？<br>假设S(n)是sort n个数字所需要的比较的次数，M(n)是合并n个数字所需要的比较的次数。<br>那么我们有，S(n) = 2*S(n) + M(n), M(n) = 2 * M(n) + n / 2，解出来可以得到<br>M(n) = O(nlog(n))<br>S(n) = O(n(log(n))^2)<br>粗一看，时间比merge sort或者quick sort还要慢，但是我们必须要搞明白，我们可以create n个thread<br>这样时间复杂度就只有O((log(n))^2) 了。<br>因为总共需要O(n(log(n))^2)次比较，每次比较都需要新开内存，所以space complexity是O(n(log(n))^2)。</p>
+<p>如果大家感兴趣的，也可以看一看bitonic sort 在cuda里的实现，上述代码只是简单的讲一下bitonic实现的原理，<br>但是实际上并不会比merge sort或者quick sort更快，因为我们既没有用到多线程，也没有使用GPU。</p>
+<p>CUDA 实现Bitnoic Sort: <a href="https://gist.github.com/mre/1392067" target="_blank" rel="noopener">https://gist.github.com/mre/1392067</a></p>
+<p>MPI 实现Bitnoic Sort: <a href="https://github.com/orestisfl/mpi_bitonic_sort">https://github.com/orestisfl/mpi_bitonic_sort</a></p>
+<h2 id="reference："><a href="#reference：" class="headerlink" title="reference："></a>reference：</h2><ol>
+<li><a href="https://en.wikipedia.org/wiki/Bitonic_sorter" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Bitonic_sorter</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/04/13/Bitonic_Sort/" data-id="ck8xzbmhg0000m1sj43n5dxtg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../../03/29/Parallel%20Computing%202/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Parallel Computing 2</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Autonomous-Driving/">Autonomous Driving</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Parallel-Computing/">Parallel Computing</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/03/">March 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">Bitonic_Sort</a>
+          </li>
+        
+          <li>
+            <a href="../../../03/29/Parallel%20Computing%202/">Parallel Computing 2</a>
+          </li>
+        
+          <li>
+            <a href="../../../03/28/Multi-Threading%20in%20Python/">Multi Threading in Python</a>
+          </li>
+        
+          <li>
+            <a href="../../../03/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="../../../03/25/Lidar-Data-PostProcessing1/">Lidar Data PostProcessing1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Ivan Xun Ouyang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
