@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Radar Tracker | Ivan Xun Ouyang`s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="A radar tracker is a component of a radar system, or an associated command and control (C2) system, that associates consecutive radar observations of the same target into tracks. It is particularly us">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Radar Tracker">
+<meta property="og:url" content="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/05/10/Radar%20Tracker/index.html">
+<meta property="og:site_name" content="Ivan Xun Ouyang&#96;s Blog">
+<meta property="og:description" content="A radar tracker is a component of a radar system, or an associated command and control (C2) system, that associates consecutive radar observations of the same target into tracks. It is particularly us">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/images/Radar_Tracker/k_means.webp">
+<meta property="article:published_time" content="2020-05-10T18:59:25.000Z">
+<meta property="article:modified_time" content="2020-05-11T04:18:11.623Z">
+<meta property="article:author" content="Ivan Xun Ouyang">
+<meta property="article:tag" content="Autonomous Driving">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Radar">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/images/Radar_Tracker/k_means.webp">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="Ivan Xun Ouyang`s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">Ivan Xun Ouyang`s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/XunOuyang/xunouyang.github.io/blob/master"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Radar Tracker" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2020-05-10T18:59:25.000Z" itemprop="datePublished">2020-05-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="../../../../categories/Autonomous-Driving/">Autonomous Driving</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Radar Tracker
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>A radar tracker is a component of a radar system, or an associated command and control (C2) system, that associates consecutive radar observations of the same target into tracks. It is particularly useful when the radar system is reporting data from several different targets or when it is necessary to combine the data from several different radars or other sensors.</p>
+<p>A classical rotating air surveillance radar system detects target echoes against a background of noise. It reports these detections (known as “plots”) in polar coordinates representing the range and bearing of the target. In addition, noise in the radar receiver will occasionally exceed the detection threshold of the radar’s Constant false alarm rate detector and be incorrectly reported as targets (known as false alarms). The role of the radar tracker is to monitor consecutive updates from the radar system (which typically occur once every few seconds, as the antenna rotates) and to determine those sequences of plots belonging to the same target, whilst rejecting any plots believed to be false alarms. In addition, the radar tracker is able to use the sequence of plots to estimate the current speed and heading of the target. When several targets are present, the radar tracker aims to provide one track for each target, with the track history often being used to indicate where the target has come from.</p>
+<h2 id="A-radar-track-will-typically-contain-the-following-information"><a href="#A-radar-track-will-typically-contain-the-following-information" class="headerlink" title="A radar track will typically contain the following information:"></a>A radar track will typically contain the following information:</h2><ol>
+<li>Position (in two or three dimensions)</li>
+<li>Heading</li>
+<li>Speed</li>
+<li>Unique track number</li>
+<li>status</li>
+<li>Age – used in tracker initiation and maintenance</li>
+</ol>
+<p>I would believe in the future, when 4D radar becomes popular, category of the object will definitely become an importannt information which can be provided by radar. They just the dense radar point cloud to train the neural network to classify the object type. Currently, the automotive radar only provides a parse reflection data point instead of a point cloud.</p>
+<h2 id="How-to-implement-radar-tracker"><a href="#How-to-implement-radar-tracker" class="headerlink" title="How to implement radar tracker"></a>How to implement radar tracker</h2><h5 id="1-Plot-to-track-association-Associate-a-radar-plot-with-an-existing-track"><a href="#1-Plot-to-track-association-Associate-a-radar-plot-with-an-existing-track" class="headerlink" title="1. Plot to track association: Associate a radar plot with an existing track"></a>1. Plot to track association: Associate a radar plot with an existing track</h5><h5 id="2-Track-smoothing-Update-the-track-with-this-latest-plot"><a href="#2-Track-smoothing-Update-the-track-with-this-latest-plot" class="headerlink" title="2. Track smoothing: Update the track with this latest plot"></a>2. Track smoothing: Update the track with this latest plot</h5><h5 id="3-Track-initiation-Spawn-new-tracks-with-any-plots-that-are-not-associated-with-existing-tracks"><a href="#3-Track-initiation-Spawn-new-tracks-with-any-plots-that-are-not-associated-with-existing-tracks" class="headerlink" title="3. Track initiation: Spawn new tracks with any plots that are not associated with existing tracks"></a>3. Track initiation: Spawn new tracks with any plots that are not associated with existing tracks</h5><h5 id="4-Track-maintenance-Delete-any-tracks-that-have-not-been-updated-or-predict-their-new-location-based-on-the-previous-heading-and-speed"><a href="#4-Track-maintenance-Delete-any-tracks-that-have-not-been-updated-or-predict-their-new-location-based-on-the-previous-heading-and-speed" class="headerlink" title="4. Track maintenance: Delete any tracks that have not been updated, or predict their new location based on the previous heading and speed"></a>4. Track maintenance: Delete any tracks that have not been updated, or predict their new location based on the previous heading and speed</h5><h2 id="Track-association"><a href="#Track-association" class="headerlink" title="Track association"></a>Track association</h2><p>Perhaps the most important step is the updating of tracks with new plots. All trackers will implicitly or explicitly take account of a number of factors during this stage, including:</p>
+<ol>
+<li>a model for how the radar measurements are related to the target coordinates</li>
+<li>the errors on the radar measurements</li>
+<li>a model of the target movement</li>
+<li>errors in the model of the target movement</li>
+</ol>
+<p>When I got the time, I will post an article to update all the information above.</p>
+<p>we can first take a very light sip on the first topic – how the radar measurements are related to the target coordinates.<br>A very famous clustering method in machine learning area – Kmeans clustering.</p>
+<h3 id="K-means-clustering"><a href="#K-means-clustering" class="headerlink" title="K means clustering"></a>K means clustering</h3><p>What is K means clustering ?<br>It is an unsupervised machine learning method used for clustering. It aims to partition n observations into k clusters in which each observation belongs to the cluster with the centroid. So the process of radar data point association is an X-means clustering. The reason I used X here is because we don`t know how many clusters will be there finally. But for K means clustering, we have to first define that there will be and only will be K clusters.</p>
+<p>Here are the steps for k means clustering.</p>
+<ol>
+<li>Randomly generate k data points as centroids, these k data points must be within the range of the whole data set. </li>
+<li>Pick a data point from the data set, calculate the Euclidean distance between the data point and all the centroids, assign the data point to the one with  the smallest Euclidean distance.</li>
+<li>Repeat step 2 for all the data points.</li>
+<li>We will get k clusters now, recalculate the centroids. Repeat step 2 and step 3.</li>
+<li>When the current centroids and previous centroids are close enough, end the process.</li>
+</ol>
+<img src="/images/Radar_Tracker/k_means.webp" width="400" hegiht="400">
+
+<h5 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">def kMeans(data,k&#x3D;2):</span><br><span class="line">    def _distance(p1,p2):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        In order to speed up, actually we don&#96;t necessarily to use Euclidean distance, we just get the square of Euclidean distance will be good enough, it can save a lot of computing power.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        return np.sum((p1-p2)**2)</span><br><span class="line"></span><br><span class="line">    def get_centroid(data,k):</span><br><span class="line">        &quot;&quot;&quot;Generate k center within the range of data set.&quot;&quot;&quot;</span><br><span class="line">        n &#x3D; data.shape[1] # features</span><br><span class="line">        centroids &#x3D; np.zeros((k,n)) # init with (0,0)....</span><br><span class="line">        for i in range(n):</span><br><span class="line">            dmin, dmax &#x3D; np.min(data[:,i]), np.max(data[:,i])</span><br><span class="line">            centroids[:,i] &#x3D; dmin + (dmax - dmin) * np.random.rand(k)</span><br><span class="line">        return centroids</span><br><span class="line">    </span><br><span class="line">    def is_converged(centroid1, centroids):</span><br><span class="line">         set1 &#x3D; set([tuple(c) for c in centroid1])</span><br><span class="line">         set2 &#x3D; set([tuple(c) for c in centroid2])</span><br><span class="line">         return (set1 &#x3D;&#x3D; set2)</span><br><span class="line">        </span><br><span class="line">    </span><br><span class="line">    n &#x3D; data.shape[0] # number of entries</span><br><span class="line">    centroids &#x3D; _rand_center(data,k)</span><br><span class="line">    label &#x3D; np.zeros(n,dtype&#x3D;np.int) # track the nearest centroid</span><br><span class="line">    assement &#x3D; np.zeros(n) # for the assement of our model</span><br><span class="line">    converged &#x3D; False</span><br><span class="line">    </span><br><span class="line">    while not converged:</span><br><span class="line">        old_centroids &#x3D; np.copy(centroids)</span><br><span class="line">        for i in range(n):</span><br><span class="line">            # determine the nearest centroid and track it with label</span><br><span class="line">            min_dist, min_index &#x3D; np.inf, -1</span><br><span class="line">            for j in range(k):</span><br><span class="line">                dist &#x3D; _distance(data[i],centroids[j])</span><br><span class="line">                if dist &lt; min_dist:</span><br><span class="line">                    min_dist, min_index &#x3D; dist, j</span><br><span class="line">                    label[i] &#x3D; j</span><br><span class="line">            assement[i] &#x3D; _distance(data[i],centroids[label[i]])**2</span><br><span class="line">        </span><br><span class="line">        # update centroid</span><br><span class="line">        for m in range(k):</span><br><span class="line">            centroids[m] &#x3D; np.mean(data[label&#x3D;&#x3D;m],axis&#x3D;0)</span><br><span class="line">        converged &#x3D; is_converged(old_centroids,centroids)    </span><br><span class="line">    return centroids, label, np.sum(assement)</span><br></pre></td></tr></table></figure>
+<p>An obvious weakness of K means clustering is that it could converge to local optimal instead of global optimal. So we could run the algorithm multiple times in order to get a better result.</p>
+<h2 id="Tracking-smoothing"><a href="#Tracking-smoothing" class="headerlink" title="Tracking smoothing:"></a>Tracking smoothing:</h2><ol>
+<li>Alpha-beta tracker</li>
+<li>Kalman filter</li>
+<li>Multiple hypothesis tracker(MHT)</li>
+<li>Interacting multiple model</li>
+</ol>
+<p>We will talk more about Kalman filter and Multiple hypothesis tracker in the future. Because these two are widely used in the industry.</p>
+<h2 id="Tracking-initiation"><a href="#Tracking-initiation" class="headerlink" title="Tracking initiation:"></a>Tracking initiation:</h2><p>Track initiation is the process of creating a new radar track from unassociated radar plots. When the radar tracker is first switched on, all of the initial radar plots are used to initialize new tracks. Once the radar tracker is running, only those plots are used to create a new track that couldn’t be used to update an existing one.</p>
+<p>Typically a new track is given the status of tentative until plots from subsequent radar updates have been successfully associated with the new track. Tentative tracks are not shown to the operator and so they provide a means of preventing false tracks from appearing on the screen – at the expense of some delay in the first reporting of a track.</p>
+<p>Once several updates have been received, the track is confirmed and displayed to the operator. The most common criterion for promoting a tentative track to a confirmed track is the “M-of-N rule”, which states that during the last N radar updates, at least M plots must have been associated with the tentative track – with M=3 and N=5 being typical values. More sophisticated approaches may use a statistical approach in which a track becomes confirmed when, for instance, its covariance matrix falls to a given size.</p>
+<p>A clutter map may be used to prevent track initiation in areas of strong clutter echoes not suppressed by the Doppler processing. The clutter map may also keep track of large bird echoes, so as to not be reinitiating track on them, repeatedly. Track initiation in a dense clutter environment can be quite demanding on computer software and hardware resources.</p>
+<h2 id="Tracker-maintenance"><a href="#Tracker-maintenance" class="headerlink" title="Tracker maintenance:"></a>Tracker maintenance:</h2><p>Track maintenance is the process in which a decision is made about whether to end the life of a track. If a track was not associated with a plot during the plot to track association phase, then there is a chance that the target may no longer exist (for instance, an aircraft may have landed or flown out of radar cover).</p>
+<p>Alternatively, however, there is a chance that the radar may have just failed to see the target at that update, but will find it again on the next update. Common approaches to deciding on whether to terminate a track include:</p>
+<ol>
+<li>If the target was not seen for the past M consecutive update opportunities (typically M=3 or so)</li>
+<li>If the target was not seen for the past M out of N most recent update opportunities</li>
+<li>If the target’s track uncertainty (covariance matrix) has grown beyond a certain threshold.</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h1><ol>
+<li><a href="https://en.wikipedia.org/wiki/Radar_tracker" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Radar_tracker</a></li>
+<li><a href="https://www.advsolned.com/example_radar_tracking.html" target="_blank" rel="noopener">https://www.advsolned.com/example_radar_tracking.html</a></li>
+<li><a href="https://github.com/USNavalResearchLaboratory/TrackerComponentLibrary">https://github.com/USNavalResearchLaboratory/TrackerComponentLibrary</a></li>
+<li><a href="https://www.blighter.com/products/blightertrack/" target="_blank" rel="noopener">https://www.blighter.com/products/blightertrack/</a></li>
+<li><a href="https://www.radartutorial.eu/10.processing/sp22.en.html" target="_blank" rel="noopener">https://www.radartutorial.eu/10.processing/sp22.en.html</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/05/10/Radar%20Tracker/" data-id="cka1zdbrt00047zsjd9hr2m6o" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Autonomous-Driving/" rel="tag">Autonomous Driving</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Radar/" rel="tag">Radar</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../03/Deep%20Learning%20Bag%20of%20Freebies/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Deep Learning Bag of Freebies</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Autonomous-Driving/">Autonomous Driving</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Parallel-Computing/">Parallel Computing</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Algorithm/" rel="tag">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Autonomous-Driving/" rel="tag">Autonomous Driving</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Parallel-Computing/" rel="tag">Parallel Computing</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Radar/" rel="tag">Radar</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="../../../../tags/Algorithm/" style="font-size: 20px;">Algorithm</a> <a href="../../../../tags/Autonomous-Driving/" style="font-size: 10px;">Autonomous Driving</a> <a href="../../../../tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="../../../../tags/Machine-Learning/" style="font-size: 15px;">Machine Learning</a> <a href="../../../../tags/Parallel-Computing/" style="font-size: 20px;">Parallel Computing</a> <a href="../../../../tags/Radar/" style="font-size: 10px;">Radar</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/03/">March 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">Radar Tracker</a>
+          </li>
+        
+          <li>
+            <a href="../../03/Deep%20Learning%20Bag%20of%20Freebies/">Deep Learning Bag of Freebies</a>
+          </li>
+        
+          <li>
+            <a href="../../../04/26/Bitonic_Sort/">双调排序 Bitonic Sort</a>
+          </li>
+        
+          <li>
+            <a href="../../../03/29/Parallel%20Computing%202/">Parallel Computing 2</a>
+          </li>
+        
+          <li>
+            <a href="../../../03/28/Multi-Threading%20in%20Python/">Multi Threading in Python</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Ivan Xun Ouyang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

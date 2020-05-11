@@ -64,12 +64,16 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Bitonic_Sort" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Radar Tracker" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="2020/04/13/Bitonic_Sort/" class="article-date">
-  <time datetime="2020-04-13T04:33:27.003Z" itemprop="datePublished">2020-04-13</time>
+    <a href="2020/05/10/Radar%20Tracker/" class="article-date">
+  <time datetime="2020-05-10T18:59:25.000Z" itemprop="datePublished">2020-05-10</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="categories/Autonomous-Driving/">Autonomous Driving</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -78,7 +82,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="2020/04/13/Bitonic_Sort/">Bitonic_Sort</a>
+      <a class="article-title" href="2020/05/10/Radar%20Tracker/">Radar Tracker</a>
     </h1>
   
 
@@ -86,7 +90,158 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="双调排序-Bitonic-Sort"><a href="#双调排序-Bitonic-Sort" class="headerlink" title="双调排序 Bitonic Sort"></a>双调排序 Bitonic Sort</h3><p>双调排序是并行计算里面一个非常重要而且常见的应用。其思想跟归并排序一样，都是用了分治的思想。<br>为什么它叫做双调排序呢？因为Bitonic Sort 会先将一个数列排序成为前半段单调递增，后半段单调递减<br>的这么一个序列（中间过渡使用），这样一个前半段单调递增，后半段单调递减的序列，我们又把它叫做Bitonic sequence（双调序列）。</p>
+        <p>A radar tracker is a component of a radar system, or an associated command and control (C2) system, that associates consecutive radar observations of the same target into tracks. It is particularly useful when the radar system is reporting data from several different targets or when it is necessary to combine the data from several different radars or other sensors.</p>
+<p>A classical rotating air surveillance radar system detects target echoes against a background of noise. It reports these detections (known as “plots”) in polar coordinates representing the range and bearing of the target. In addition, noise in the radar receiver will occasionally exceed the detection threshold of the radar’s Constant false alarm rate detector and be incorrectly reported as targets (known as false alarms). The role of the radar tracker is to monitor consecutive updates from the radar system (which typically occur once every few seconds, as the antenna rotates) and to determine those sequences of plots belonging to the same target, whilst rejecting any plots believed to be false alarms. In addition, the radar tracker is able to use the sequence of plots to estimate the current speed and heading of the target. When several targets are present, the radar tracker aims to provide one track for each target, with the track history often being used to indicate where the target has come from.</p>
+<h2 id="A-radar-track-will-typically-contain-the-following-information"><a href="#A-radar-track-will-typically-contain-the-following-information" class="headerlink" title="A radar track will typically contain the following information:"></a>A radar track will typically contain the following information:</h2><ol>
+<li>Position (in two or three dimensions)</li>
+<li>Heading</li>
+<li>Speed</li>
+<li>Unique track number</li>
+<li>status</li>
+<li>Age – used in tracker initiation and maintenance</li>
+</ol>
+<p>I would believe in the future, when 4D radar becomes popular, category of the object will definitely become an importannt information which can be provided by radar. They just the dense radar point cloud to train the neural network to classify the object type. Currently, the automotive radar only provides a parse reflection data point instead of a point cloud.</p>
+<h2 id="How-to-implement-radar-tracker"><a href="#How-to-implement-radar-tracker" class="headerlink" title="How to implement radar tracker"></a>How to implement radar tracker</h2><h5 id="1-Plot-to-track-association-Associate-a-radar-plot-with-an-existing-track"><a href="#1-Plot-to-track-association-Associate-a-radar-plot-with-an-existing-track" class="headerlink" title="1. Plot to track association: Associate a radar plot with an existing track"></a>1. Plot to track association: Associate a radar plot with an existing track</h5><h5 id="2-Track-smoothing-Update-the-track-with-this-latest-plot"><a href="#2-Track-smoothing-Update-the-track-with-this-latest-plot" class="headerlink" title="2. Track smoothing: Update the track with this latest plot"></a>2. Track smoothing: Update the track with this latest plot</h5><h5 id="3-Track-initiation-Spawn-new-tracks-with-any-plots-that-are-not-associated-with-existing-tracks"><a href="#3-Track-initiation-Spawn-new-tracks-with-any-plots-that-are-not-associated-with-existing-tracks" class="headerlink" title="3. Track initiation: Spawn new tracks with any plots that are not associated with existing tracks"></a>3. Track initiation: Spawn new tracks with any plots that are not associated with existing tracks</h5><h5 id="4-Track-maintenance-Delete-any-tracks-that-have-not-been-updated-or-predict-their-new-location-based-on-the-previous-heading-and-speed"><a href="#4-Track-maintenance-Delete-any-tracks-that-have-not-been-updated-or-predict-their-new-location-based-on-the-previous-heading-and-speed" class="headerlink" title="4. Track maintenance: Delete any tracks that have not been updated, or predict their new location based on the previous heading and speed"></a>4. Track maintenance: Delete any tracks that have not been updated, or predict their new location based on the previous heading and speed</h5><h2 id="Track-association"><a href="#Track-association" class="headerlink" title="Track association"></a>Track association</h2><p>Perhaps the most important step is the updating of tracks with new plots. All trackers will implicitly or explicitly take account of a number of factors during this stage, including:</p>
+<ol>
+<li>a model for how the radar measurements are related to the target coordinates</li>
+<li>the errors on the radar measurements</li>
+<li>a model of the target movement</li>
+<li>errors in the model of the target movement</li>
+</ol>
+<p>When I got the time, I will post an article to update all the information above.</p>
+<p>we can first take a very light sip on the first topic – how the radar measurements are related to the target coordinates.<br>A very famous clustering method in machine learning area – Kmeans clustering.</p>
+<h3 id="K-means-clustering"><a href="#K-means-clustering" class="headerlink" title="K means clustering"></a>K means clustering</h3><p>What is K means clustering ?<br>It is an unsupervised machine learning method used for clustering. It aims to partition n observations into k clusters in which each observation belongs to the cluster with the centroid. So the process of radar data point association is an X-means clustering. The reason I used X here is because we don`t know how many clusters will be there finally. But for K means clustering, we have to first define that there will be and only will be K clusters.</p>
+<p>Here are the steps for k means clustering.</p>
+<ol>
+<li>Randomly generate k data points as centroids, these k data points must be within the range of the whole data set. </li>
+<li>Pick a data point from the data set, calculate the Euclidean distance between the data point and all the centroids, assign the data point to the one with  the smallest Euclidean distance.</li>
+<li>Repeat step 2 for all the data points.</li>
+<li>We will get k clusters now, recalculate the centroids. Repeat step 2 and step 3.</li>
+<li>When the current centroids and previous centroids are close enough, end the process.</li>
+</ol>
+<img src="/images/Radar_Tracker/k_means.webp" width="400" hegiht="400">
+
+<h5 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">def kMeans(data,k&#x3D;2):</span><br><span class="line">    def _distance(p1,p2):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        In order to speed up, actually we don&#96;t necessarily to use Euclidean distance, we just get the square of Euclidean distance will be good enough, it can save a lot of computing power.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        return np.sum((p1-p2)**2)</span><br><span class="line"></span><br><span class="line">    def get_centroid(data,k):</span><br><span class="line">        &quot;&quot;&quot;Generate k center within the range of data set.&quot;&quot;&quot;</span><br><span class="line">        n &#x3D; data.shape[1] # features</span><br><span class="line">        centroids &#x3D; np.zeros((k,n)) # init with (0,0)....</span><br><span class="line">        for i in range(n):</span><br><span class="line">            dmin, dmax &#x3D; np.min(data[:,i]), np.max(data[:,i])</span><br><span class="line">            centroids[:,i] &#x3D; dmin + (dmax - dmin) * np.random.rand(k)</span><br><span class="line">        return centroids</span><br><span class="line">    </span><br><span class="line">    def is_converged(centroid1, centroids):</span><br><span class="line">         set1 &#x3D; set([tuple(c) for c in centroid1])</span><br><span class="line">         set2 &#x3D; set([tuple(c) for c in centroid2])</span><br><span class="line">         return (set1 &#x3D;&#x3D; set2)</span><br><span class="line">        </span><br><span class="line">    </span><br><span class="line">    n &#x3D; data.shape[0] # number of entries</span><br><span class="line">    centroids &#x3D; _rand_center(data,k)</span><br><span class="line">    label &#x3D; np.zeros(n,dtype&#x3D;np.int) # track the nearest centroid</span><br><span class="line">    assement &#x3D; np.zeros(n) # for the assement of our model</span><br><span class="line">    converged &#x3D; False</span><br><span class="line">    </span><br><span class="line">    while not converged:</span><br><span class="line">        old_centroids &#x3D; np.copy(centroids)</span><br><span class="line">        for i in range(n):</span><br><span class="line">            # determine the nearest centroid and track it with label</span><br><span class="line">            min_dist, min_index &#x3D; np.inf, -1</span><br><span class="line">            for j in range(k):</span><br><span class="line">                dist &#x3D; _distance(data[i],centroids[j])</span><br><span class="line">                if dist &lt; min_dist:</span><br><span class="line">                    min_dist, min_index &#x3D; dist, j</span><br><span class="line">                    label[i] &#x3D; j</span><br><span class="line">            assement[i] &#x3D; _distance(data[i],centroids[label[i]])**2</span><br><span class="line">        </span><br><span class="line">        # update centroid</span><br><span class="line">        for m in range(k):</span><br><span class="line">            centroids[m] &#x3D; np.mean(data[label&#x3D;&#x3D;m],axis&#x3D;0)</span><br><span class="line">        converged &#x3D; is_converged(old_centroids,centroids)    </span><br><span class="line">    return centroids, label, np.sum(assement)</span><br></pre></td></tr></table></figure>
+<p>An obvious weakness of K means clustering is that it could converge to local optimal instead of global optimal. So we could run the algorithm multiple times in order to get a better result.</p>
+<h2 id="Tracking-smoothing"><a href="#Tracking-smoothing" class="headerlink" title="Tracking smoothing:"></a>Tracking smoothing:</h2><ol>
+<li>Alpha-beta tracker</li>
+<li>Kalman filter</li>
+<li>Multiple hypothesis tracker(MHT)</li>
+<li>Interacting multiple model</li>
+</ol>
+<p>We will talk more about Kalman filter and Multiple hypothesis tracker in the future. Because these two are widely used in the industry.</p>
+<h2 id="Tracking-initiation"><a href="#Tracking-initiation" class="headerlink" title="Tracking initiation:"></a>Tracking initiation:</h2><p>Track initiation is the process of creating a new radar track from unassociated radar plots. When the radar tracker is first switched on, all of the initial radar plots are used to initialize new tracks. Once the radar tracker is running, only those plots are used to create a new track that couldn’t be used to update an existing one.</p>
+<p>Typically a new track is given the status of tentative until plots from subsequent radar updates have been successfully associated with the new track. Tentative tracks are not shown to the operator and so they provide a means of preventing false tracks from appearing on the screen – at the expense of some delay in the first reporting of a track.</p>
+<p>Once several updates have been received, the track is confirmed and displayed to the operator. The most common criterion for promoting a tentative track to a confirmed track is the “M-of-N rule”, which states that during the last N radar updates, at least M plots must have been associated with the tentative track – with M=3 and N=5 being typical values. More sophisticated approaches may use a statistical approach in which a track becomes confirmed when, for instance, its covariance matrix falls to a given size.</p>
+<p>A clutter map may be used to prevent track initiation in areas of strong clutter echoes not suppressed by the Doppler processing. The clutter map may also keep track of large bird echoes, so as to not be reinitiating track on them, repeatedly. Track initiation in a dense clutter environment can be quite demanding on computer software and hardware resources.</p>
+<h2 id="Tracker-maintenance"><a href="#Tracker-maintenance" class="headerlink" title="Tracker maintenance:"></a>Tracker maintenance:</h2><p>Track maintenance is the process in which a decision is made about whether to end the life of a track. If a track was not associated with a plot during the plot to track association phase, then there is a chance that the target may no longer exist (for instance, an aircraft may have landed or flown out of radar cover).</p>
+<p>Alternatively, however, there is a chance that the radar may have just failed to see the target at that update, but will find it again on the next update. Common approaches to deciding on whether to terminate a track include:</p>
+<ol>
+<li>If the target was not seen for the past M consecutive update opportunities (typically M=3 or so)</li>
+<li>If the target was not seen for the past M out of N most recent update opportunities</li>
+<li>If the target’s track uncertainty (covariance matrix) has grown beyond a certain threshold.</li>
+</ol>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h1><ol>
+<li><a href="https://en.wikipedia.org/wiki/Radar_tracker" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Radar_tracker</a></li>
+<li><a href="https://www.advsolned.com/example_radar_tracking.html" target="_blank" rel="noopener">https://www.advsolned.com/example_radar_tracking.html</a></li>
+<li><a href="https://github.com/USNavalResearchLaboratory/TrackerComponentLibrary">https://github.com/USNavalResearchLaboratory/TrackerComponentLibrary</a></li>
+<li><a href="https://www.blighter.com/products/blightertrack/" target="_blank" rel="noopener">https://www.blighter.com/products/blightertrack/</a></li>
+<li><a href="https://www.radartutorial.eu/10.processing/sp22.en.html" target="_blank" rel="noopener">https://www.radartutorial.eu/10.processing/sp22.en.html</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/05/10/Radar%20Tracker/" data-id="cka1zdbrt00047zsjd9hr2m6o" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Autonomous-Driving/" rel="tag">Autonomous Driving</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Radar/" rel="tag">Radar</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Deep Learning Bag of Freebies" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2020/05/03/Deep%20Learning%20Bag%20of%20Freebies/" class="article-date">
+  <time datetime="2020-05-04T00:34:35.176Z" itemprop="datePublished">2020-05-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="categories/Machine-Learning/">Machine Learning</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2020/05/03/Deep%20Learning%20Bag%20of%20Freebies/">Deep Learning Bag of Freebies</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This artical was original from <a href="https://medium.com/@sahiluppal/bag-of-freebies-95092859d279" target="_blank" rel="noopener">https://medium.com/@sahiluppal/bag-of-freebies-95092859d279</a><br>The author owns the copyright of the article.</p>
+<p>A list of techniques used in combination to improve a variety of computer vision task<br><img src="/images/Deep Learning/Bag of Freebies/SOTA_vs_Bag_Of_Freebies.png" width="800" hegiht="600"><br>Object detection is, no doubt, one of the most fundamental applications in computer vision. Latest state-of-the-art detectors (including single-stage like YOLO or multiple-stage like RCNN [and derivatives]) are based on image classification backbone networks e.g., VGG, ResNet etc.<br>There are multiple techniques “collectively known as Bag of Freebies”, which can be used in combination to boost the performance of all popular object detection networks without introducing extra computational cost during inference.<br>Why Bag of Freebies got attention?<br>Usually, object detectors are trained offline. Therefore, researchers always like to take advantage and develop better training methods which can make the object detector receive better accuracy without increasing inference cost. These methods only changes the training strategy or what we can say training cost. You can think bag of freebies as a pipeline of data augmentation techniques. The sole purpose of data augmentation is to increase the variability of the input images, so that the designed object detection model has higher robustness to the images obtained from different environments.<br>In general, photometric distortions and geometric distortions are two commonly used data augmentation method and they definitely benefit the object detection tasks. In photometric distortions, we adjust the brightness, contrast, hue, saturation and noise of an image. For geometric distortions, we add random scaling, cropping, flipping, and rotating. In addition, some researchers engaged in data augmentation put their emphasis on simulating object occlusion issues (when an object covers a portion of another object.).<br>These freebies are all training time modifications, and therefore, only affect model weights without changing the network structure and have achieved good results in image classification and object detection methods.<br>Bag of Freebies<br>In this section, we enlist an image mix-up method for object detection. We will introduce data processing and training schedule designed to improve performance of object detection models.</p>
+<h2 id="1-Image-Mix-up-for-Object-Detection"><a href="#1-Image-Mix-up-for-Object-Detection" class="headerlink" title="1. Image Mix-up for Object Detection"></a>1. Image Mix-up for Object Detection</h2><p>The key idea of mix-up in image classification task is to linearly mixing up pixels from one image to another image in a specific ratio where both images belong to the same training dataset. At the same time, one-hot encoded labels of both images are also mixed using the same ratio. The ratio in mix-up algorithm is drawn from a distribution called beta distribution written as B(alpha, beta).<br><img src="/images/Deep Learning/Bag of Freebies/mix_up1.png" width="800" hegiht="600"><br>//small<br>Mix-up visualization of image classification with typical mix-up ratio of 0.1: 0.9. Two images are mixed uniformly across all pixels, and image labels are weighted summation of original one-hot label vector.<br>In this example, a bird image is mixed with a wall clock image in a typical 0.1: 0.9 ratio and so as their one-hot encoded labels.<br><img src="/images/Deep Learning/Bag of Freebies/mix_up2.png" width="800" hegiht="600"><br>//small<br>Geometry preserved alignment of mixed images for object detection. Image pixels are mixed up, object labels are merged as a new array.<br>In this example, both images are merged along with their ground truth object coordinates as a new array while preserving their geometry.<br>To verify mix-up designed for object detection, while choosing a beta distribution with alpha, beta are both at least 1,we experimentally test mix-up ratio distributions using the YOLOv3 network on Pascal VOC dataset. Below Table shows the actual improvements by adopting detection mix-up ratios sampled by different beta distributions. Beta distribution with alpha and beta both equal to 1.5 is marginally better than 1.0 equivalent to uniform distribution). It increases the mean average precision by almost 3% from the baseline.<br><img src="/images/Deep Learning/Bag of Freebies/mix_up3.png" width="800" hegiht="600"><br>//small<br>Effect of various mix-up approaches, validated with YOLO3 on Pascal VOC 2007 test set. Weighted loss indicates the overall loss is the summation of multiple objects with ratio 0 to 1 according to image blending ratio they belong to in the original training images.<br>In contrast, Rosenfeld conducted a series of experiments name as “Elephant in the room”, where an elephant image patch is randomly placed on a natural image, then this adversarial image is used to challenge existing object detection models. The results indicate that existing object detection models are prune to such attack and show weakness to detect such transplanted objects. Researchers followed the same experiments by sliding an elephant image patch through an indoor room image, trained two YOLOv3 models on COCO 2017 dataset with one mix-up approach and other isn’t. They can observe that vanilla model trained without mix-up approach is struggling to detect “elephant in the room” due to heavy occlusion and lack of context because it’s rare to capture an elephant in a kitchen, and model trained with mix approach is more robust. In addition, they also noticed that mix model is more humble. less confident and generates lower scores for object on average. However, this behavior does not affect evaluation results as shown.<br><img src="/images/Deep Learning/Bag of Freebies/mix_up4.png" width="800" hegiht="600"><br>//small<br>Elephant in the room example. Model trained with geometry preserved mixup (bottom) is more robust against alien objects compared to baseline (top)<br>It was obvious that model trained with visually coherent mixup is more robust (94.12 vs 42.95) to detect elephant in indoor scene even though it is very rare in natural images. And even mix-up model easily handles occlusion as you can see in bottom row. The mix-up model receives more challenges during training therefore is significantly better than vanilla model in handling unprecedented scenes and very crowded object groups.<br><img src="/images/Deep Learning/Bag of Freebies/mix_up5.png" width="800" hegiht="600"><br>/small<br>Statistics of detection results affected by elephant in the room. ”Recall of elephant” is the recall of sliding elephant in all generated frames, indicating how robust the model handles objects in unseen context.</p>
+<h2 id="2-Classification-Head-Label-Smoothing"><a href="#2-Classification-Head-Label-Smoothing" class="headerlink" title="2. Classification Head Label Smoothing"></a>2. Classification Head Label Smoothing</h2><p>Label smoothing is a loss function modification that has been shown to be very effective for training deep learning networks. Label smoothing improves accuracy in image classification, translation, and even speech recognition. The simple explanation of how it works is that it changes the training target for the neural nets from a hard ‘1’ to ‘1-label smoothing adjustment’, meaning the neural nets is trained to be a bit less confident of it’s answers.<br>Example: assume we want to classify images into dogs and cats. If we see a photo of a dog, we train the neural nets (via cross entropy loss) to move towards a 1 for dog, and 0 for cat. And if a cat, the reverse where we train towards 1 for cat, 0 for dog. In other words, a binary or “hard’ answer.<br>However, neural nets have a bad habit of becoming ‘over-confident’ in their predictions during training, and this can reduce their ability to generalize and thus perform as well on new, unseen future data. In addition, large datasets can often include incorrectly labeled data, meaning inherently the neural nets should be a bit skeptical of the ‘correct answer’ to reduce extreme modeling around some degree of bad answers.<br>Thus, what label smoothing does is force the neural nets to be less confident in it’s answers by training it to move towards the ‘1-adjustment’ target, and then dividing the adjustment amount over the remaining classes…. rather than simply a hard 1.<br>For our binary dog/cat example, label smoothing of .1 means the target answer would be .90 (90% confident) it’s a dog for a dog image, and .10 (10% confident) it’s a cat, rather than the previous move towards 1 or 0. By being a bit less certain, it acts as a form of regularization and improves it’s ability to perform better on new data.<br>Label smoothing’s affect on Neural Networks: Now we get to the heart of the paper, which shows visually how label smoothing affects the NN’s classification processing.<br>ResNet classifying “airplane, automobile and bird” during training and validation.<br><img src="/images/Deep Learning/Bag of Freebies/Classification Head Label Smoothing1.png" width="800" hegiht="600"><br>// small<br>ResNet training for classifying 3 image categories…note the tremendous difference in cluster tightness<br><img src="/images/Deep Learning/Bag of Freebies/Classification Head Label Smoothing2.png" width="800" hegiht="600"><br>// small<br>ResNet validation results. Label smoothing increased the final accuracy. Note that while the label smoothing drives activations to tight clusters in training, in validation it spreads around the center and leverages a full range of confidences with it’s predictions.</p>
+<p>As the images visually show, label smoothing produces tighter clustering and greater separation between categories for the final activations.<br>This is a primary reason why label smoothing produces more regularized and robust neural networks, that importantly tend to generalize better on future data. However, there’s an additional beneficial effect than just better activation centering.</p>
+<h2 id="3-Data-Preprocessing"><a href="#3-Data-Preprocessing" class="headerlink" title="3. Data Preprocessing"></a>3. Data Preprocessing</h2><p>In image classification domain, usually neural networks are extremely tolerant to image geometrical transformation. It is actually encouraged to randomly augment the images e.g. randomly flip, rotate and crop images in order to improve generalization accuracy and avoid overfitting.<br>In terms of types of detection networks, there are two type of pipelines for generalizing final predictions. First is single stage detector networks, where final outputs are generated directly from feature map from the CNN backbone, for example SSD(single shot detector) and YOLO networks. The second type is multi-stage proposal and sampling based approaches, following Fast-RCNN, where a certain number of regions are sampled from a large pool of generated ROIs, where final outputs are generated by applying cropping based techniques to the feature maps from CNN backbone.<br>Since multi-stage networks already applies cropping based techniques, they doesn’t need their input to be augmented with random cropping and many more extensive geometric augmentations. But single stage detectors can reproduce highly appealing results if augmentation is applied to the input images. This is the major difference between one-stage and so called multi-stage object detection data pipelines.</p>
+<h2 id="4-Training-Schedule-Revamping"><a href="#4-Training-Schedule-Revamping" class="headerlink" title="4. Training Schedule Revamping"></a>4. Training Schedule Revamping</h2><p>During training, the learning rate usually starts with a relatively big number and gradually becomes smaller throughout the training process. For instance the default learning rate schedule for Faster-RCNN is to reduce learning rate by ratio 0.1 to 60k iterations. Similarly, YOLOv3 uses same ratio 0.1 to reduce learning rate at 40k and 45k iterations. As this is a sharp learning rate transition which may cause the optimizer to re-stabilize the learning momentum in the next few iterations.<br>In contrast a smoother cosine learning rate adjustment can be used. Cosine schedules scales the learning rate according to the value of cosine function on 0 to pi.<br><img src="/images/Deep Learning/Bag of Freebies/Training Schedule Revamping1.png" width="800" hegiht="600"><br>Visualization of learning rate scheduling with warmup enabled for YOLOv3 training on Pascal VOC. (a): cosine and step schedules for batch size 64. (b): Validation mAP comparison curves using step and cosine learning schedule.<br>Warmup learning rate is another common strategy to avoid gradient explosion during the initial training iterations. Training with cosine schedule and proper warmup lead to better validation accuracy as shown in the figure.</p>
+<h2 id="5-Synchronized-Batch-Normalization-and-Random-Shape-Input"><a href="#5-Synchronized-Batch-Normalization-and-Random-Shape-Input" class="headerlink" title="5. Synchronized Batch Normalization and Random Shape Input"></a>5. Synchronized Batch Normalization and Random Shape Input</h2><p>Neural networks are compute intensive but are highly parallelizable. This leads us to the need of computation environments to equip multiple devices (GPUs) to accelerate training. Batch Normalization helps us to train input data in chunks while reducing sensitivity towards hyperparameters. Although the typical implementation of Batch Normalization working on multiple devices (GPUs) is fast, but experiments suggests that reducing size of batch size on multiple devices causing slightly different statistics during computation, which potentially degraded performance. This is not a significant issue in some standard vision tasks such as ImageNet classification (as the batch size per device is usually large enough to obtain good statistics). However, it hurts the performance in some tasks with a small batch size (e.g., 1 per GPU).<br>Natural training images come in various shapes. To fit memory limitation and allow simpler batching, many single-stage object detection networks are trained with fixed shapes. To reduce risk of overfitting and to improve generalization of network prediction, researchers follow YOLOv3’s official implementation details and used a mini-batch of N training images and resized to N x 3 x H x W, where H and W are multipliers of network stride. For example YOLOv3 use H = W = {320,352,384,416,448,480,512,544,576,608} for training using VGG as CNN backbone whose stride is 32.<br>Results<br>Stacking all these tweaks for object detection, researchers sticked to major frameworks YOLOv3(representing single-stage pipelines) which is famous for its efficiency and good accuracy and Faster-RCNN(representing multi-stage pipelines) which is one of the most adopted detection framework and foundation of many others variant.<br>YOLOv3<br><img src="/images/Deep Learning/Bag of Freebies/Results1.png" width="800" hegiht="600"><br>//small<br>-&gt;COCO 80 category AP analysis with YOLOv3 .Red lines indicate performance gain using bag of freebies, while blue lines indicate performance drop.&lt;-<br>As we can see in the above representation, YOLOv3 is trained on COCO dataset on which have almost 80 categories. while using the above tweaks researchers can claim the performance gain (shown in red) and we can also see some performance drop (shown in blue). But overall YOLOv3 gets 3.43% performance gain on AP.<br><img src="/images/Deep Learning/Bag of Freebies/Results2.png" width="800" hegiht="600"><br>//small<br>Incremental trick validation results of YOLOv3, evaluatedat416×416on Pascal VOC 2007 test set.<br>Faster-RCNN<br><img src="/images/Deep Learning/Bag of Freebies/Results3.png" width="800" hegiht="600"><br>// small<br>COCO 80 category AP analysis with Faster-RCNN resnet50. Red lines indicate performance gain using bag of freebies, while blue lines indicate performance drop.<br>Similarly in the above representation, Faster-RCNN with ResNet50 CNN backbone also trained on COCO dataset. while using the above tweaks researchers can claim the performance gain (shown in red) and we can also see some performance drop (shown in blue). But overall Faster-RCNN gets 3.55% performance gain on AP.<br><img src="/images/Deep Learning/Bag of Freebies/Results4.png" width="800" hegiht="600"></p>
+<p>Conclusion<br>In this article, we showed that how bag of training enhancements significantly improves model performances while introducing zero overhead to the inference environment. Empirical experiments of YOLOv3 and Faster-RCNN on Pascal VOC and COCO datasets show that the bag of tricks are consistently improving object detection models. By stacking all these tweaks, we observe no signs of degradation of any level and suggest a wider adoption to future object detection pipelines. These freebies are all training time modifications and therefore only affect model weights without increasing inference time or change of network structures.<br>References<br>[1] Bag of Freebies for Training Object Detection Neural Networks. <a href="https://arxiv.org/pdf/1902.04103.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1902.04103.pdf</a><br>[2] YOLOv4: Optimal Speed and Accuracy of Object Detection. <a href="https://arxiv.org/pdf/2004.10934.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/2004.10934.pdf</a><br>[3] Gluoncv toolkit. <a href="https://github.com/dmlc/gluon-cv">https://github.com/dmlc/gluon-cv</a><br>[4] Redmon and A. Farhadi. Yolov3: An incremental improvement. <a href="https://arxiv.org/abs/1804.02767" target="_blank" rel="noopener">https://arxiv.org/abs/1804.02767</a><br>[5] Label Smoothing &amp; Deep Learning: Google Brain explains why it works and when to use (SOTA tips). <a href="https://medium.com/@lessw/label-smoothing-deep-learning-google-brain-explains-why-it-works-and-when-to-use-sota-tips-977733ef020" target="_blank" rel="noopener">https://medium.com/@lessw/label-smoothing-deep-learning-google-brain-explains-why-it-works-and-when-to-use-sota-tips-977733ef020</a><br>[6] Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks. <a href="https://arxiv.org/abs/1506.01497" target="_blank" rel="noopener">https://arxiv.org/abs/1506.01497</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/05/03/Deep%20Learning%20Bag%20of%20Freebies/" data-id="ck9rr6dgu0000xosj5ujlf86j" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Machine-Learning/" rel="tag">Machine Learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Bitonic_Sort" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2020/04/26/Bitonic_Sort/" class="article-date">
+  <time datetime="2020-04-26T22:59:25.000Z" itemprop="datePublished">2020-04-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="categories/Parallel-Computing/">Parallel Computing</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2020/04/26/Bitonic_Sort/">双调排序 Bitonic Sort</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>双调排序是并行计算里面一个非常重要而且常见的应用。其思想跟归并排序一样，都是用了分治的思想。<br>为什么它叫做双调排序呢？因为Bitonic Sort 会先将一个数列排序成为前半段单调递增，后半段单调递减<br>的这么一个序列（中间过渡使用），这样一个前半段单调递增，后半段单调递减的序列，我们又把它叫做Bitonic sequence（双调序列）。</p>
 <p>具体实现Bitonic Sort的操作如下：<br>下图所示是一个Bitonic Sort的示意图：</p>
 <img src="/images/Bitonic_Sort/BitonicSort1.svg.png" width="800" hegiht="600">
 
@@ -116,9 +271,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/04/13/Bitonic_Sort/" data-id="ck8xzbmhg0000m1sj43n5dxtg" class="article-share-link">Share</a>
+      <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/04/26/Bitonic_Sort/" data-id="ck8xzbmhg0000m1sj43n5dxtg" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Algorithm/" rel="tag">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Parallel-Computing/" rel="tag">Parallel Computing</a></li></ul>
+
     </footer>
   </div>
   
@@ -165,6 +322,8 @@
       <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/03/29/Parallel%20Computing%202/" data-id="ck8bu1s5w0001shsj8f8rd4w8" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Algorithm/" rel="tag">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Parallel-Computing/" rel="tag">Parallel Computing</a></li></ul>
+
     </footer>
   </div>
   
@@ -267,6 +426,8 @@
       <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/03/28/Multi-Threading%20in%20Python/" data-id="ck8bu1s4a0000shsj0k761x51" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Algorithm/" rel="tag">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Parallel-Computing/" rel="tag">Parallel Computing</a></li></ul>
+
     </footer>
   </div>
   
@@ -406,6 +567,8 @@
       <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/03/25/Parallel%20Computing1/" data-id="ck8az0g7r0001d7sjfj0qhd22" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Algorithm/" rel="tag">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Parallel-Computing/" rel="tag">Parallel Computing</a></li></ul>
+
     </footer>
   </div>
   
@@ -423,22 +586,36 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="categories/Autonomous-Driving/">Autonomous Driving</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Parallel-Computing/">Parallel Computing</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="categories/Autonomous-Driving/">Autonomous Driving</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Parallel-Computing/">Parallel Computing</a></li></ul>
     </div>
   </div>
 
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="tags/Algorithm/" rel="tag">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Autonomous-Driving/" rel="tag">Autonomous Driving</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Parallel-Computing/" rel="tag">Parallel Computing</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Radar/" rel="tag">Radar</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="tags/Algorithm/" style="font-size: 20px;">Algorithm</a> <a href="tags/Autonomous-Driving/" style="font-size: 10px;">Autonomous Driving</a> <a href="tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="tags/Machine-Learning/" style="font-size: 15px;">Machine Learning</a> <a href="tags/Parallel-Computing/" style="font-size: 20px;">Parallel Computing</a> <a href="tags/Radar/" style="font-size: 10px;">Radar</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/03/">March 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/03/">March 2020</a></li></ul>
     </div>
   </div>
 
@@ -451,7 +628,15 @@
       <ul>
         
           <li>
-            <a href="2020/04/13/Bitonic_Sort/">Bitonic_Sort</a>
+            <a href="2020/05/10/Radar%20Tracker/">Radar Tracker</a>
+          </li>
+        
+          <li>
+            <a href="2020/05/03/Deep%20Learning%20Bag%20of%20Freebies/">Deep Learning Bag of Freebies</a>
+          </li>
+        
+          <li>
+            <a href="2020/04/26/Bitonic_Sort/">双调排序 Bitonic Sort</a>
           </li>
         
           <li>
@@ -460,14 +645,6 @@
         
           <li>
             <a href="2020/03/28/Multi-Threading%20in%20Python/">Multi Threading in Python</a>
-          </li>
-        
-          <li>
-            <a href="2020/03/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="2020/03/25/Lidar-Data-PostProcessing1/">Lidar Data PostProcessing1</a>
           </li>
         
       </ul>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Deep Learning Bag of Freebies | Ivan Xun Ouyang`s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="This artical was original from https:&#x2F;&#x2F;medium.com&#x2F;@sahiluppal&#x2F;bag-of-freebies-95092859d279The author owns the copyright of the article. A list of techniques used in combination to improve a variety of">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deep Learning Bag of Freebies">
+<meta property="og:url" content="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/05/03/Deep%20Learning%20Bag%20of%20Freebies/index.html">
+<meta property="og:site_name" content="Ivan Xun Ouyang&#96;s Blog">
+<meta property="og:description" content="This artical was original from https:&#x2F;&#x2F;medium.com&#x2F;@sahiluppal&#x2F;bag-of-freebies-95092859d279The author owns the copyright of the article. A list of techniques used in combination to improve a variety of">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/images/Deep%20Learning/Bag%20of%20Freebies/SOTA_vs_Bag_Of_Freebies.png">
+<meta property="og:image" content="https://github.com/images/Deep%20Learning/Bag%20of%20Freebies/mix_up1.png">
+<meta property="og:image" content="https://github.com/images/Deep%20Learning/Bag%20of%20Freebies/mix_up2.png">
+<meta property="og:image" content="https://github.com/images/Deep%20Learning/Bag%20of%20Freebies/mix_up3.png">
+<meta property="og:image" content="https://github.com/images/Deep%20Learning/Bag%20of%20Freebies/mix_up4.png">
+<meta property="og:image" content="https://github.com/images/Deep%20Learning/Bag%20of%20Freebies/mix_up5.png">
+<meta property="og:image" content="https://github.com/images/Deep%20Learning/Bag%20of%20Freebies/Classification%20Head%20Label%20Smoothing1.png">
+<meta property="og:image" content="https://github.com/images/Deep%20Learning/Bag%20of%20Freebies/Classification%20Head%20Label%20Smoothing2.png">
+<meta property="og:image" content="https://github.com/images/Deep%20Learning/Bag%20of%20Freebies/Training%20Schedule%20Revamping1.png">
+<meta property="og:image" content="https://github.com/images/Deep%20Learning/Bag%20of%20Freebies/Results1.png">
+<meta property="og:image" content="https://github.com/images/Deep%20Learning/Bag%20of%20Freebies/Results2.png">
+<meta property="og:image" content="https://github.com/images/Deep%20Learning/Bag%20of%20Freebies/Results3.png">
+<meta property="og:image" content="https://github.com/images/Deep%20Learning/Bag%20of%20Freebies/Results4.png">
+<meta property="article:published_time" content="2020-05-04T00:34:35.176Z">
+<meta property="article:modified_time" content="2020-05-10T18:58:07.459Z">
+<meta property="article:author" content="Ivan Xun Ouyang">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Deep Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/images/Deep%20Learning/Bag%20of%20Freebies/SOTA_vs_Bag_Of_Freebies.png">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="Ivan Xun Ouyang`s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">Ivan Xun Ouyang`s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/XunOuyang/xunouyang.github.io/blob/master"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Deep Learning Bag of Freebies" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2020-05-04T00:34:35.176Z" itemprop="datePublished">2020-05-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="../../../../categories/Machine-Learning/">Machine Learning</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Deep Learning Bag of Freebies
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This artical was original from <a href="https://medium.com/@sahiluppal/bag-of-freebies-95092859d279" target="_blank" rel="noopener">https://medium.com/@sahiluppal/bag-of-freebies-95092859d279</a><br>The author owns the copyright of the article.</p>
+<p>A list of techniques used in combination to improve a variety of computer vision task<br><img src="/images/Deep Learning/Bag of Freebies/SOTA_vs_Bag_Of_Freebies.png" width="800" hegiht="600"><br>Object detection is, no doubt, one of the most fundamental applications in computer vision. Latest state-of-the-art detectors (including single-stage like YOLO or multiple-stage like RCNN [and derivatives]) are based on image classification backbone networks e.g., VGG, ResNet etc.<br>There are multiple techniques “collectively known as Bag of Freebies”, which can be used in combination to boost the performance of all popular object detection networks without introducing extra computational cost during inference.<br>Why Bag of Freebies got attention?<br>Usually, object detectors are trained offline. Therefore, researchers always like to take advantage and develop better training methods which can make the object detector receive better accuracy without increasing inference cost. These methods only changes the training strategy or what we can say training cost. You can think bag of freebies as a pipeline of data augmentation techniques. The sole purpose of data augmentation is to increase the variability of the input images, so that the designed object detection model has higher robustness to the images obtained from different environments.<br>In general, photometric distortions and geometric distortions are two commonly used data augmentation method and they definitely benefit the object detection tasks. In photometric distortions, we adjust the brightness, contrast, hue, saturation and noise of an image. For geometric distortions, we add random scaling, cropping, flipping, and rotating. In addition, some researchers engaged in data augmentation put their emphasis on simulating object occlusion issues (when an object covers a portion of another object.).<br>These freebies are all training time modifications, and therefore, only affect model weights without changing the network structure and have achieved good results in image classification and object detection methods.<br>Bag of Freebies<br>In this section, we enlist an image mix-up method for object detection. We will introduce data processing and training schedule designed to improve performance of object detection models.</p>
+<h2 id="1-Image-Mix-up-for-Object-Detection"><a href="#1-Image-Mix-up-for-Object-Detection" class="headerlink" title="1. Image Mix-up for Object Detection"></a>1. Image Mix-up for Object Detection</h2><p>The key idea of mix-up in image classification task is to linearly mixing up pixels from one image to another image in a specific ratio where both images belong to the same training dataset. At the same time, one-hot encoded labels of both images are also mixed using the same ratio. The ratio in mix-up algorithm is drawn from a distribution called beta distribution written as B(alpha, beta).<br><img src="/images/Deep Learning/Bag of Freebies/mix_up1.png" width="800" hegiht="600"><br>//small<br>Mix-up visualization of image classification with typical mix-up ratio of 0.1: 0.9. Two images are mixed uniformly across all pixels, and image labels are weighted summation of original one-hot label vector.<br>In this example, a bird image is mixed with a wall clock image in a typical 0.1: 0.9 ratio and so as their one-hot encoded labels.<br><img src="/images/Deep Learning/Bag of Freebies/mix_up2.png" width="800" hegiht="600"><br>//small<br>Geometry preserved alignment of mixed images for object detection. Image pixels are mixed up, object labels are merged as a new array.<br>In this example, both images are merged along with their ground truth object coordinates as a new array while preserving their geometry.<br>To verify mix-up designed for object detection, while choosing a beta distribution with alpha, beta are both at least 1,we experimentally test mix-up ratio distributions using the YOLOv3 network on Pascal VOC dataset. Below Table shows the actual improvements by adopting detection mix-up ratios sampled by different beta distributions. Beta distribution with alpha and beta both equal to 1.5 is marginally better than 1.0 equivalent to uniform distribution). It increases the mean average precision by almost 3% from the baseline.<br><img src="/images/Deep Learning/Bag of Freebies/mix_up3.png" width="800" hegiht="600"><br>//small<br>Effect of various mix-up approaches, validated with YOLO3 on Pascal VOC 2007 test set. Weighted loss indicates the overall loss is the summation of multiple objects with ratio 0 to 1 according to image blending ratio they belong to in the original training images.<br>In contrast, Rosenfeld conducted a series of experiments name as “Elephant in the room”, where an elephant image patch is randomly placed on a natural image, then this adversarial image is used to challenge existing object detection models. The results indicate that existing object detection models are prune to such attack and show weakness to detect such transplanted objects. Researchers followed the same experiments by sliding an elephant image patch through an indoor room image, trained two YOLOv3 models on COCO 2017 dataset with one mix-up approach and other isn’t. They can observe that vanilla model trained without mix-up approach is struggling to detect “elephant in the room” due to heavy occlusion and lack of context because it’s rare to capture an elephant in a kitchen, and model trained with mix approach is more robust. In addition, they also noticed that mix model is more humble. less confident and generates lower scores for object on average. However, this behavior does not affect evaluation results as shown.<br><img src="/images/Deep Learning/Bag of Freebies/mix_up4.png" width="800" hegiht="600"><br>//small<br>Elephant in the room example. Model trained with geometry preserved mixup (bottom) is more robust against alien objects compared to baseline (top)<br>It was obvious that model trained with visually coherent mixup is more robust (94.12 vs 42.95) to detect elephant in indoor scene even though it is very rare in natural images. And even mix-up model easily handles occlusion as you can see in bottom row. The mix-up model receives more challenges during training therefore is significantly better than vanilla model in handling unprecedented scenes and very crowded object groups.<br><img src="/images/Deep Learning/Bag of Freebies/mix_up5.png" width="800" hegiht="600"><br>/small<br>Statistics of detection results affected by elephant in the room. ”Recall of elephant” is the recall of sliding elephant in all generated frames, indicating how robust the model handles objects in unseen context.</p>
+<h2 id="2-Classification-Head-Label-Smoothing"><a href="#2-Classification-Head-Label-Smoothing" class="headerlink" title="2. Classification Head Label Smoothing"></a>2. Classification Head Label Smoothing</h2><p>Label smoothing is a loss function modification that has been shown to be very effective for training deep learning networks. Label smoothing improves accuracy in image classification, translation, and even speech recognition. The simple explanation of how it works is that it changes the training target for the neural nets from a hard ‘1’ to ‘1-label smoothing adjustment’, meaning the neural nets is trained to be a bit less confident of it’s answers.<br>Example: assume we want to classify images into dogs and cats. If we see a photo of a dog, we train the neural nets (via cross entropy loss) to move towards a 1 for dog, and 0 for cat. And if a cat, the reverse where we train towards 1 for cat, 0 for dog. In other words, a binary or “hard’ answer.<br>However, neural nets have a bad habit of becoming ‘over-confident’ in their predictions during training, and this can reduce their ability to generalize and thus perform as well on new, unseen future data. In addition, large datasets can often include incorrectly labeled data, meaning inherently the neural nets should be a bit skeptical of the ‘correct answer’ to reduce extreme modeling around some degree of bad answers.<br>Thus, what label smoothing does is force the neural nets to be less confident in it’s answers by training it to move towards the ‘1-adjustment’ target, and then dividing the adjustment amount over the remaining classes…. rather than simply a hard 1.<br>For our binary dog/cat example, label smoothing of .1 means the target answer would be .90 (90% confident) it’s a dog for a dog image, and .10 (10% confident) it’s a cat, rather than the previous move towards 1 or 0. By being a bit less certain, it acts as a form of regularization and improves it’s ability to perform better on new data.<br>Label smoothing’s affect on Neural Networks: Now we get to the heart of the paper, which shows visually how label smoothing affects the NN’s classification processing.<br>ResNet classifying “airplane, automobile and bird” during training and validation.<br><img src="/images/Deep Learning/Bag of Freebies/Classification Head Label Smoothing1.png" width="800" hegiht="600"><br>// small<br>ResNet training for classifying 3 image categories…note the tremendous difference in cluster tightness<br><img src="/images/Deep Learning/Bag of Freebies/Classification Head Label Smoothing2.png" width="800" hegiht="600"><br>// small<br>ResNet validation results. Label smoothing increased the final accuracy. Note that while the label smoothing drives activations to tight clusters in training, in validation it spreads around the center and leverages a full range of confidences with it’s predictions.</p>
+<p>As the images visually show, label smoothing produces tighter clustering and greater separation between categories for the final activations.<br>This is a primary reason why label smoothing produces more regularized and robust neural networks, that importantly tend to generalize better on future data. However, there’s an additional beneficial effect than just better activation centering.</p>
+<h2 id="3-Data-Preprocessing"><a href="#3-Data-Preprocessing" class="headerlink" title="3. Data Preprocessing"></a>3. Data Preprocessing</h2><p>In image classification domain, usually neural networks are extremely tolerant to image geometrical transformation. It is actually encouraged to randomly augment the images e.g. randomly flip, rotate and crop images in order to improve generalization accuracy and avoid overfitting.<br>In terms of types of detection networks, there are two type of pipelines for generalizing final predictions. First is single stage detector networks, where final outputs are generated directly from feature map from the CNN backbone, for example SSD(single shot detector) and YOLO networks. The second type is multi-stage proposal and sampling based approaches, following Fast-RCNN, where a certain number of regions are sampled from a large pool of generated ROIs, where final outputs are generated by applying cropping based techniques to the feature maps from CNN backbone.<br>Since multi-stage networks already applies cropping based techniques, they doesn’t need their input to be augmented with random cropping and many more extensive geometric augmentations. But single stage detectors can reproduce highly appealing results if augmentation is applied to the input images. This is the major difference between one-stage and so called multi-stage object detection data pipelines.</p>
+<h2 id="4-Training-Schedule-Revamping"><a href="#4-Training-Schedule-Revamping" class="headerlink" title="4. Training Schedule Revamping"></a>4. Training Schedule Revamping</h2><p>During training, the learning rate usually starts with a relatively big number and gradually becomes smaller throughout the training process. For instance the default learning rate schedule for Faster-RCNN is to reduce learning rate by ratio 0.1 to 60k iterations. Similarly, YOLOv3 uses same ratio 0.1 to reduce learning rate at 40k and 45k iterations. As this is a sharp learning rate transition which may cause the optimizer to re-stabilize the learning momentum in the next few iterations.<br>In contrast a smoother cosine learning rate adjustment can be used. Cosine schedules scales the learning rate according to the value of cosine function on 0 to pi.<br><img src="/images/Deep Learning/Bag of Freebies/Training Schedule Revamping1.png" width="800" hegiht="600"><br>Visualization of learning rate scheduling with warmup enabled for YOLOv3 training on Pascal VOC. (a): cosine and step schedules for batch size 64. (b): Validation mAP comparison curves using step and cosine learning schedule.<br>Warmup learning rate is another common strategy to avoid gradient explosion during the initial training iterations. Training with cosine schedule and proper warmup lead to better validation accuracy as shown in the figure.</p>
+<h2 id="5-Synchronized-Batch-Normalization-and-Random-Shape-Input"><a href="#5-Synchronized-Batch-Normalization-and-Random-Shape-Input" class="headerlink" title="5. Synchronized Batch Normalization and Random Shape Input"></a>5. Synchronized Batch Normalization and Random Shape Input</h2><p>Neural networks are compute intensive but are highly parallelizable. This leads us to the need of computation environments to equip multiple devices (GPUs) to accelerate training. Batch Normalization helps us to train input data in chunks while reducing sensitivity towards hyperparameters. Although the typical implementation of Batch Normalization working on multiple devices (GPUs) is fast, but experiments suggests that reducing size of batch size on multiple devices causing slightly different statistics during computation, which potentially degraded performance. This is not a significant issue in some standard vision tasks such as ImageNet classification (as the batch size per device is usually large enough to obtain good statistics). However, it hurts the performance in some tasks with a small batch size (e.g., 1 per GPU).<br>Natural training images come in various shapes. To fit memory limitation and allow simpler batching, many single-stage object detection networks are trained with fixed shapes. To reduce risk of overfitting and to improve generalization of network prediction, researchers follow YOLOv3’s official implementation details and used a mini-batch of N training images and resized to N x 3 x H x W, where H and W are multipliers of network stride. For example YOLOv3 use H = W = {320,352,384,416,448,480,512,544,576,608} for training using VGG as CNN backbone whose stride is 32.<br>Results<br>Stacking all these tweaks for object detection, researchers sticked to major frameworks YOLOv3(representing single-stage pipelines) which is famous for its efficiency and good accuracy and Faster-RCNN(representing multi-stage pipelines) which is one of the most adopted detection framework and foundation of many others variant.<br>YOLOv3<br><img src="/images/Deep Learning/Bag of Freebies/Results1.png" width="800" hegiht="600"><br>//small<br>-&gt;COCO 80 category AP analysis with YOLOv3 .Red lines indicate performance gain using bag of freebies, while blue lines indicate performance drop.&lt;-<br>As we can see in the above representation, YOLOv3 is trained on COCO dataset on which have almost 80 categories. while using the above tweaks researchers can claim the performance gain (shown in red) and we can also see some performance drop (shown in blue). But overall YOLOv3 gets 3.43% performance gain on AP.<br><img src="/images/Deep Learning/Bag of Freebies/Results2.png" width="800" hegiht="600"><br>//small<br>Incremental trick validation results of YOLOv3, evaluatedat416×416on Pascal VOC 2007 test set.<br>Faster-RCNN<br><img src="/images/Deep Learning/Bag of Freebies/Results3.png" width="800" hegiht="600"><br>// small<br>COCO 80 category AP analysis with Faster-RCNN resnet50. Red lines indicate performance gain using bag of freebies, while blue lines indicate performance drop.<br>Similarly in the above representation, Faster-RCNN with ResNet50 CNN backbone also trained on COCO dataset. while using the above tweaks researchers can claim the performance gain (shown in red) and we can also see some performance drop (shown in blue). But overall Faster-RCNN gets 3.55% performance gain on AP.<br><img src="/images/Deep Learning/Bag of Freebies/Results4.png" width="800" hegiht="600"></p>
+<p>Conclusion<br>In this article, we showed that how bag of training enhancements significantly improves model performances while introducing zero overhead to the inference environment. Empirical experiments of YOLOv3 and Faster-RCNN on Pascal VOC and COCO datasets show that the bag of tricks are consistently improving object detection models. By stacking all these tweaks, we observe no signs of degradation of any level and suggest a wider adoption to future object detection pipelines. These freebies are all training time modifications and therefore only affect model weights without increasing inference time or change of network structures.<br>References<br>[1] Bag of Freebies for Training Object Detection Neural Networks. <a href="https://arxiv.org/pdf/1902.04103.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1902.04103.pdf</a><br>[2] YOLOv4: Optimal Speed and Accuracy of Object Detection. <a href="https://arxiv.org/pdf/2004.10934.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/2004.10934.pdf</a><br>[3] Gluoncv toolkit. <a href="https://github.com/dmlc/gluon-cv">https://github.com/dmlc/gluon-cv</a><br>[4] Redmon and A. Farhadi. Yolov3: An incremental improvement. <a href="https://arxiv.org/abs/1804.02767" target="_blank" rel="noopener">https://arxiv.org/abs/1804.02767</a><br>[5] Label Smoothing &amp; Deep Learning: Google Brain explains why it works and when to use (SOTA tips). <a href="https://medium.com/@lessw/label-smoothing-deep-learning-google-brain-explains-why-it-works-and-when-to-use-sota-tips-977733ef020" target="_blank" rel="noopener">https://medium.com/@lessw/label-smoothing-deep-learning-google-brain-explains-why-it-works-and-when-to-use-sota-tips-977733ef020</a><br>[6] Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks. <a href="https://arxiv.org/abs/1506.01497" target="_blank" rel="noopener">https://arxiv.org/abs/1506.01497</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/05/03/Deep%20Learning%20Bag%20of%20Freebies/" data-id="ck9rr6dgu0000xosj5ujlf86j" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Machine-Learning/" rel="tag">Machine Learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../10/Radar%20Tracker/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Radar Tracker
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../../04/26/Bitonic_Sort/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">双调排序 Bitonic Sort</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Autonomous-Driving/">Autonomous Driving</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Parallel-Computing/">Parallel Computing</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Algorithm/" rel="tag">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Autonomous-Driving/" rel="tag">Autonomous Driving</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Parallel-Computing/" rel="tag">Parallel Computing</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Radar/" rel="tag">Radar</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="../../../../tags/Algorithm/" style="font-size: 20px;">Algorithm</a> <a href="../../../../tags/Autonomous-Driving/" style="font-size: 10px;">Autonomous Driving</a> <a href="../../../../tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="../../../../tags/Machine-Learning/" style="font-size: 15px;">Machine Learning</a> <a href="../../../../tags/Parallel-Computing/" style="font-size: 20px;">Parallel Computing</a> <a href="../../../../tags/Radar/" style="font-size: 10px;">Radar</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/03/">March 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../10/Radar%20Tracker/">Radar Tracker</a>
+          </li>
+        
+          <li>
+            <a href="">Deep Learning Bag of Freebies</a>
+          </li>
+        
+          <li>
+            <a href="../../../04/26/Bitonic_Sort/">双调排序 Bitonic Sort</a>
+          </li>
+        
+          <li>
+            <a href="../../../03/29/Parallel%20Computing%202/">Parallel Computing 2</a>
+          </li>
+        
+          <li>
+            <a href="../../../03/28/Multi-Threading%20in%20Python/">Multi Threading in Python</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Ivan Xun Ouyang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
