@@ -64,6 +64,77 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-hungarian algorithm" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2020/07/12/hungarian%20algorithm/" class="article-date">
+  <time datetime="2020-07-12T20:59:25.000Z" itemprop="datePublished">2020-07-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="categories/Autonomous-Driving/">Autonomous Driving</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2020/07/12/hungarian%20algorithm/">Hungarian Algorithm</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>The Hungarian method is a combinatorial optimization algorithm that solves the assignment problem in polynomial time and which anticipated later primal-dual methods. Why we bring it up here today? It is a widely used algorithm in data point association which means it can be also used in autonomous driving for multi-target tracking.</p>
+<p>In order to have a good understanding in Hungarian Algorithm, we will have to first understand a few concepts:</p>
+<h2 id="Bipartite-graph"><a href="#Bipartite-graph" class="headerlink" title="Bipartite graph"></a>Bipartite graph</h2><p>A bipartite graph (or bigraph) is a graph whose vertices can be divided into two disjoint and independent sets U and V such that every edge connects a vertex in U to one in V. Let us take a look at a example as below:<br><img src="/images/Hungarian_Algorithm/example.jpeg" width="400" hegiht="400"></p>
+<h2 id="match"><a href="#match" class="headerlink" title="match"></a>match</h2><p>A vertex is matched (or saturated) if it is an endpoint of one of the edges in the matching. Otherwise the vertex is unmatched.</p>
+<h2 id="Maximal-matching"><a href="#Maximal-matching" class="headerlink" title="Maximal matching"></a>Maximal matching</h2><p>A maximal matching is a matching M of a graph G that is not a subset of any other matching.</p>
+<h2 id="Maximum-matching"><a href="#Maximum-matching" class="headerlink" title="Maximum matching"></a>Maximum matching</h2><p>In graph theory, a maximum matching is a matching that contains the largest possible number of edges.</p>
+<h2 id="Perfect-matching"><a href="#Perfect-matching" class="headerlink" title="Perfect matching"></a>Perfect matching</h2><p>If one matching in all the matching of a graph, can make all the vertices matched, then we call this matching a perfect matching. It is very commonly seen that a graph does not have any perfect matching. </p>
+<h2 id="Alternating-Path"><a href="#Alternating-Path" class="headerlink" title="Alternating Path"></a>Alternating Path</h2><p>It is a path that begins with an unmatched vertex and[2] whose edges belong alternately to the matching and not to the matching.</p>
+<h2 id="Augmenting-Path"><a href="#Augmenting-Path" class="headerlink" title="Augmenting Path"></a>Augmenting Path</h2><p>It is an alternating path that starts from and ends on free (unmatched) vertices.</p>
+<h3 id="Algorithm-details"><a href="#Algorithm-details" class="headerlink" title="Algorithm details"></a>Algorithm details</h3><p>Let us take an example:</p>
+<h5 id="We-are-trying-to-match-the-vertices-1-2-3-4-with-a-b-c-d-The-relationship-between-vertices-is-shown-as-below"><a href="#We-are-trying-to-match-the-vertices-1-2-3-4-with-a-b-c-d-The-relationship-between-vertices-is-shown-as-below" class="headerlink" title="We are trying to match the vertices 1,2,3,4 with a,b,c,d. The relationship between vertices is shown as below:"></a>We are trying to match the vertices 1,2,3,4 with a,b,c,d. The relationship between vertices is shown as below:</h5><img src="/images/Hungarian_Algorithm/example1.jpeg" width="400" hegiht="400">
+
+<h5 id="We-first-assign-1-to-a-we-mark-it-as-red-indicate-that-it-is-a-match"><a href="#We-first-assign-1-to-a-we-mark-it-as-red-indicate-that-it-is-a-match" class="headerlink" title="We first assign 1 to a, we mark it as red indicate that it is a match."></a>We first assign 1 to a, we mark it as red indicate that it is a match.</h5><img src="/images/Hungarian_Algorithm/example2.jpeg" width="400" hegiht="400">
+
+<h5 id="Then-we-match-2-with-b"><a href="#Then-we-match-2-with-b" class="headerlink" title="Then we match 2 with b."></a>Then we match 2 with b.</h5><img src="/images/Hungarian_Algorithm/example3.jpeg" width="400" hegiht="400">
+
+<h5 id="We-are-trying-to-match-3-a-vertice-however-we-find-that-a-and-b-both-are-matched-with-other-vertices-So-we-are-trying-to-reassign-1-to-another-vertice-We-mark-it-as-blue"><a href="#We-are-trying-to-match-3-a-vertice-however-we-find-that-a-and-b-both-are-matched-with-other-vertices-So-we-are-trying-to-reassign-1-to-another-vertice-We-mark-it-as-blue" class="headerlink" title="We are trying to match 3 a vertice however we find that a and b both are matched with other vertices. So we are trying to reassign 1 to another vertice. We mark it as blue."></a>We are trying to match 3 a vertice however we find that a and b both are matched with other vertices. So we are trying to reassign 1 to another vertice. We mark it as blue.</h5><img src="/images/Hungarian_Algorithm/example4.jpeg" width="400" hegiht="400">
+
+<h5 id="Similarly-we-find-that-we-cannot-assign-1-to-another-vertice-because-b-is-occupied-too-We-have-to-unassign-b-to-2-and-assign-b-to-2-We-get-c-for-2-instead"><a href="#Similarly-we-find-that-we-cannot-assign-1-to-another-vertice-because-b-is-occupied-too-We-have-to-unassign-b-to-2-and-assign-b-to-2-We-get-c-for-2-instead" class="headerlink" title="Similarly, we find that we cannot assign 1 to another vertice because b is occupied too. We have to unassign b to 2 and assign b to 2. We get c for 2 instead."></a>Similarly, we find that we cannot assign 1 to another vertice because b is occupied too. We have to unassign b to 2 and assign b to 2. We get c for 2 instead.</h5><img src="/images/Hungarian_Algorithm/example5.jpeg" width="400" hegiht="400">
+
+<h5 id="Now-1-gets-b-which-is-marked-as-red-Similarly-2-gets-c-3-gets-a"><a href="#Now-1-gets-b-which-is-marked-as-red-Similarly-2-gets-c-3-gets-a" class="headerlink" title="Now 1 gets b which is marked as red. Similarly 2 gets c, 3 gets a."></a>Now 1 gets b which is marked as red. Similarly 2 gets c, 3 gets a.</h5><img src="/images/Hungarian_Algorithm/example6.jpeg" width="400" hegiht="400">
+
+<h5 id="As-for-4-because-c-is-assigned-and-we-cannot-asssign-other-vertices-for-1-2-3-It-reaches-the-end-of-the-algorithm-The-main-idea-is-to-reassign-some-vertices-to-others-and-see-if-it-can-increase-the-totally-number-of-matchings"><a href="#As-for-4-because-c-is-assigned-and-we-cannot-asssign-other-vertices-for-1-2-3-It-reaches-the-end-of-the-algorithm-The-main-idea-is-to-reassign-some-vertices-to-others-and-see-if-it-can-increase-the-totally-number-of-matchings" class="headerlink" title="As for 4, because c is assigned, and we cannot asssign other vertices for 1, 2, 3. It reaches the end of the algorithm. The main idea is to reassign some vertices to others and see if it can increase the totally number of matchings."></a>As for 4, because c is assigned, and we cannot asssign other vertices for 1, 2, 3. It reaches the end of the algorithm. The main idea is to reassign some vertices to others and see if it can increase the totally number of matchings.</h5><img src="/images/Hungarian_Algorithm/example7.jpeg" width="400" hegiht="400">
+
+<h2 id="Algorithm-implementation"><a href="#Algorithm-implementation" class="headerlink" title="Algorithm implementation."></a>Algorithm implementation.</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>An obvious weakness of K means clustering is that it could converge to local optimal instead of global optimal. So we could run the algorithm multiple times in order to get a better result.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h1><ol>
+<li><a href="https://www.renfei.org/blog/bipartite-matching.html" target="_blank" rel="noopener">https://www.renfei.org/blog/bipartite-matching.html</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/07/12/hungarian%20algorithm/" data-id="ckcjk3oak0000d3sj9d1ehtog" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Autonomous-Driving/" rel="tag">Autonomous Driving</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Radar/" rel="tag">Radar</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Sensor-Fusion/" rel="tag">Sensor Fusion</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Radar Tracker" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="2020/05/10/Radar%20Tracker/" class="article-date">
@@ -152,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/05/10/Radar%20Tracker/" data-id="cka1zdbrt00047zsjd9hr2m6o" class="article-share-link">Share</a>
+      <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/05/10/Radar%20Tracker/" data-id="cka1e8vhi0001t8sjggmpfbpz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Autonomous-Driving/" rel="tag">Autonomous Driving</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Radar/" rel="tag">Radar</a></li></ul>
@@ -596,7 +667,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="tags/Algorithm/" rel="tag">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Autonomous-Driving/" rel="tag">Autonomous Driving</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Parallel-Computing/" rel="tag">Parallel Computing</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Radar/" rel="tag">Radar</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="tags/Algorithm/" rel="tag">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Autonomous-Driving/" rel="tag">Autonomous Driving</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Parallel-Computing/" rel="tag">Parallel Computing</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Radar/" rel="tag">Radar</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Sensor-Fusion/" rel="tag">Sensor Fusion</a></li></ul>
     </div>
   </div>
 
@@ -606,7 +677,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="tags/Algorithm/" style="font-size: 20px;">Algorithm</a> <a href="tags/Autonomous-Driving/" style="font-size: 10px;">Autonomous Driving</a> <a href="tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="tags/Machine-Learning/" style="font-size: 15px;">Machine Learning</a> <a href="tags/Parallel-Computing/" style="font-size: 20px;">Parallel Computing</a> <a href="tags/Radar/" style="font-size: 10px;">Radar</a>
+      <a href="tags/Algorithm/" style="font-size: 20px;">Algorithm</a> <a href="tags/Autonomous-Driving/" style="font-size: 15px;">Autonomous Driving</a> <a href="tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="tags/Machine-Learning/" style="font-size: 15px;">Machine Learning</a> <a href="tags/Parallel-Computing/" style="font-size: 20px;">Parallel Computing</a> <a href="tags/Radar/" style="font-size: 15px;">Radar</a> <a href="tags/Sensor-Fusion/" style="font-size: 10px;">Sensor Fusion</a>
     </div>
   </div>
 
@@ -615,7 +686,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/03/">March 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="archives/2020/03/">March 2020</a></li></ul>
     </div>
   </div>
 
@@ -626,6 +697,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="2020/07/12/hungarian%20algorithm/">Hungarian Algorithm</a>
+          </li>
         
           <li>
             <a href="2020/05/10/Radar%20Tracker/">Radar Tracker</a>
@@ -641,10 +716,6 @@
         
           <li>
             <a href="2020/03/29/Parallel%20Computing%202/">Parallel Computing 2</a>
-          </li>
-        
-          <li>
-            <a href="2020/03/28/Multi-Threading%20in%20Python/">Multi Threading in Python</a>
           </li>
         
       </ul>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hungarian Algorithm | Ivan Xun Ouyang`s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="The Hungarian method is a combinatorial optimization algorithm that solves the assignment problem in polynomial time and which anticipated later primal-dual methods. Why we bring it up here today? It">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hungarian Algorithm">
+<meta property="og:url" content="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/07/12/hungarian%20algorithm/index.html">
+<meta property="og:site_name" content="Ivan Xun Ouyang&#96;s Blog">
+<meta property="og:description" content="The Hungarian method is a combinatorial optimization algorithm that solves the assignment problem in polynomial time and which anticipated later primal-dual methods. Why we bring it up here today? It">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/images/Hungarian_Algorithm/example.jpeg">
+<meta property="og:image" content="https://github.com/images/Hungarian_Algorithm/example1.jpeg">
+<meta property="og:image" content="https://github.com/images/Hungarian_Algorithm/example2.jpeg">
+<meta property="og:image" content="https://github.com/images/Hungarian_Algorithm/example3.jpeg">
+<meta property="og:image" content="https://github.com/images/Hungarian_Algorithm/example4.jpeg">
+<meta property="og:image" content="https://github.com/images/Hungarian_Algorithm/example5.jpeg">
+<meta property="og:image" content="https://github.com/images/Hungarian_Algorithm/example6.jpeg">
+<meta property="og:image" content="https://github.com/images/Hungarian_Algorithm/example7.jpeg">
+<meta property="article:published_time" content="2020-07-12T20:59:25.000Z">
+<meta property="article:modified_time" content="2020-07-19T01:46:58.927Z">
+<meta property="article:author" content="Ivan Xun Ouyang">
+<meta property="article:tag" content="Autonomous Driving">
+<meta property="article:tag" content="Radar">
+<meta property="article:tag" content="Sensor Fusion">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/images/Hungarian_Algorithm/example.jpeg">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="Ivan Xun Ouyang`s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">Ivan Xun Ouyang`s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/XunOuyang/xunouyang.github.io/blob/master"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-hungarian algorithm" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2020-07-12T20:59:25.000Z" itemprop="datePublished">2020-07-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="../../../../categories/Autonomous-Driving/">Autonomous Driving</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hungarian Algorithm
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>The Hungarian method is a combinatorial optimization algorithm that solves the assignment problem in polynomial time and which anticipated later primal-dual methods. Why we bring it up here today? It is a widely used algorithm in data point association which means it can be also used in autonomous driving for multi-target tracking.</p>
+<p>In order to have a good understanding in Hungarian Algorithm, we will have to first understand a few concepts:</p>
+<h2 id="Bipartite-graph"><a href="#Bipartite-graph" class="headerlink" title="Bipartite graph"></a>Bipartite graph</h2><p>A bipartite graph (or bigraph) is a graph whose vertices can be divided into two disjoint and independent sets U and V such that every edge connects a vertex in U to one in V. Let us take a look at a example as below:<br><img src="/images/Hungarian_Algorithm/example.jpeg" width="400" hegiht="400"></p>
+<h2 id="match"><a href="#match" class="headerlink" title="match"></a>match</h2><p>A vertex is matched (or saturated) if it is an endpoint of one of the edges in the matching. Otherwise the vertex is unmatched.</p>
+<h2 id="Maximal-matching"><a href="#Maximal-matching" class="headerlink" title="Maximal matching"></a>Maximal matching</h2><p>A maximal matching is a matching M of a graph G that is not a subset of any other matching.</p>
+<h2 id="Maximum-matching"><a href="#Maximum-matching" class="headerlink" title="Maximum matching"></a>Maximum matching</h2><p>In graph theory, a maximum matching is a matching that contains the largest possible number of edges.</p>
+<h2 id="Perfect-matching"><a href="#Perfect-matching" class="headerlink" title="Perfect matching"></a>Perfect matching</h2><p>If one matching in all the matching of a graph, can make all the vertices matched, then we call this matching a perfect matching. It is very commonly seen that a graph does not have any perfect matching. </p>
+<h2 id="Alternating-Path"><a href="#Alternating-Path" class="headerlink" title="Alternating Path"></a>Alternating Path</h2><p>It is a path that begins with an unmatched vertex and[2] whose edges belong alternately to the matching and not to the matching.</p>
+<h2 id="Augmenting-Path"><a href="#Augmenting-Path" class="headerlink" title="Augmenting Path"></a>Augmenting Path</h2><p>It is an alternating path that starts from and ends on free (unmatched) vertices.</p>
+<h3 id="Algorithm-details"><a href="#Algorithm-details" class="headerlink" title="Algorithm details"></a>Algorithm details</h3><p>Let us take an example:</p>
+<h5 id="We-are-trying-to-match-the-vertices-1-2-3-4-with-a-b-c-d-The-relationship-between-vertices-is-shown-as-below"><a href="#We-are-trying-to-match-the-vertices-1-2-3-4-with-a-b-c-d-The-relationship-between-vertices-is-shown-as-below" class="headerlink" title="We are trying to match the vertices 1,2,3,4 with a,b,c,d. The relationship between vertices is shown as below:"></a>We are trying to match the vertices 1,2,3,4 with a,b,c,d. The relationship between vertices is shown as below:</h5><img src="/images/Hungarian_Algorithm/example1.jpeg" width="400" hegiht="400">
+
+<h5 id="We-first-assign-1-to-a-we-mark-it-as-red-indicate-that-it-is-a-match"><a href="#We-first-assign-1-to-a-we-mark-it-as-red-indicate-that-it-is-a-match" class="headerlink" title="We first assign 1 to a, we mark it as red indicate that it is a match."></a>We first assign 1 to a, we mark it as red indicate that it is a match.</h5><img src="/images/Hungarian_Algorithm/example2.jpeg" width="400" hegiht="400">
+
+<h5 id="Then-we-match-2-with-b"><a href="#Then-we-match-2-with-b" class="headerlink" title="Then we match 2 with b."></a>Then we match 2 with b.</h5><img src="/images/Hungarian_Algorithm/example3.jpeg" width="400" hegiht="400">
+
+<h5 id="We-are-trying-to-match-3-a-vertice-however-we-find-that-a-and-b-both-are-matched-with-other-vertices-So-we-are-trying-to-reassign-1-to-another-vertice-We-mark-it-as-blue"><a href="#We-are-trying-to-match-3-a-vertice-however-we-find-that-a-and-b-both-are-matched-with-other-vertices-So-we-are-trying-to-reassign-1-to-another-vertice-We-mark-it-as-blue" class="headerlink" title="We are trying to match 3 a vertice however we find that a and b both are matched with other vertices. So we are trying to reassign 1 to another vertice. We mark it as blue."></a>We are trying to match 3 a vertice however we find that a and b both are matched with other vertices. So we are trying to reassign 1 to another vertice. We mark it as blue.</h5><img src="/images/Hungarian_Algorithm/example4.jpeg" width="400" hegiht="400">
+
+<h5 id="Similarly-we-find-that-we-cannot-assign-1-to-another-vertice-because-b-is-occupied-too-We-have-to-unassign-b-to-2-and-assign-b-to-2-We-get-c-for-2-instead"><a href="#Similarly-we-find-that-we-cannot-assign-1-to-another-vertice-because-b-is-occupied-too-We-have-to-unassign-b-to-2-and-assign-b-to-2-We-get-c-for-2-instead" class="headerlink" title="Similarly, we find that we cannot assign 1 to another vertice because b is occupied too. We have to unassign b to 2 and assign b to 2. We get c for 2 instead."></a>Similarly, we find that we cannot assign 1 to another vertice because b is occupied too. We have to unassign b to 2 and assign b to 2. We get c for 2 instead.</h5><img src="/images/Hungarian_Algorithm/example5.jpeg" width="400" hegiht="400">
+
+<h5 id="Now-1-gets-b-which-is-marked-as-red-Similarly-2-gets-c-3-gets-a"><a href="#Now-1-gets-b-which-is-marked-as-red-Similarly-2-gets-c-3-gets-a" class="headerlink" title="Now 1 gets b which is marked as red. Similarly 2 gets c, 3 gets a."></a>Now 1 gets b which is marked as red. Similarly 2 gets c, 3 gets a.</h5><img src="/images/Hungarian_Algorithm/example6.jpeg" width="400" hegiht="400">
+
+<h5 id="As-for-4-because-c-is-assigned-and-we-cannot-asssign-other-vertices-for-1-2-3-It-reaches-the-end-of-the-algorithm-The-main-idea-is-to-reassign-some-vertices-to-others-and-see-if-it-can-increase-the-totally-number-of-matchings"><a href="#As-for-4-because-c-is-assigned-and-we-cannot-asssign-other-vertices-for-1-2-3-It-reaches-the-end-of-the-algorithm-The-main-idea-is-to-reassign-some-vertices-to-others-and-see-if-it-can-increase-the-totally-number-of-matchings" class="headerlink" title="As for 4, because c is assigned, and we cannot asssign other vertices for 1, 2, 3. It reaches the end of the algorithm. The main idea is to reassign some vertices to others and see if it can increase the totally number of matchings."></a>As for 4, because c is assigned, and we cannot asssign other vertices for 1, 2, 3. It reaches the end of the algorithm. The main idea is to reassign some vertices to others and see if it can increase the totally number of matchings.</h5><img src="/images/Hungarian_Algorithm/example7.jpeg" width="400" hegiht="400">
+
+<h2 id="Algorithm-implementation"><a href="#Algorithm-implementation" class="headerlink" title="Algorithm implementation."></a>Algorithm implementation.</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>An obvious weakness of K means clustering is that it could converge to local optimal instead of global optimal. So we could run the algorithm multiple times in order to get a better result.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h1><ol>
+<li><a href="https://www.renfei.org/blog/bipartite-matching.html" target="_blank" rel="noopener">https://www.renfei.org/blog/bipartite-matching.html</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/XunOuyang/xunouyang.github.io/blob/master/2020/07/12/hungarian%20algorithm/" data-id="ckcjk3oak0000d3sj9d1ehtog" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Autonomous-Driving/" rel="tag">Autonomous Driving</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Radar/" rel="tag">Radar</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Sensor-Fusion/" rel="tag">Sensor Fusion</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../../../05/10/Radar%20Tracker/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Radar Tracker</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Autonomous-Driving/">Autonomous Driving</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/Parallel-Computing/">Parallel Computing</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Algorithm/" rel="tag">Algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Autonomous-Driving/" rel="tag">Autonomous Driving</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Parallel-Computing/" rel="tag">Parallel Computing</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Radar/" rel="tag">Radar</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Sensor-Fusion/" rel="tag">Sensor Fusion</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="../../../../tags/Algorithm/" style="font-size: 20px;">Algorithm</a> <a href="../../../../tags/Autonomous-Driving/" style="font-size: 15px;">Autonomous Driving</a> <a href="../../../../tags/Deep-Learning/" style="font-size: 10px;">Deep Learning</a> <a href="../../../../tags/Machine-Learning/" style="font-size: 15px;">Machine Learning</a> <a href="../../../../tags/Parallel-Computing/" style="font-size: 20px;">Parallel Computing</a> <a href="../../../../tags/Radar/" style="font-size: 15px;">Radar</a> <a href="../../../../tags/Sensor-Fusion/" style="font-size: 10px;">Sensor Fusion</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/03/">March 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">Hungarian Algorithm</a>
+          </li>
+        
+          <li>
+            <a href="../../../05/10/Radar%20Tracker/">Radar Tracker</a>
+          </li>
+        
+          <li>
+            <a href="../../../05/03/Deep%20Learning%20Bag%20of%20Freebies/">Deep Learning Bag of Freebies</a>
+          </li>
+        
+          <li>
+            <a href="../../../04/26/Bitonic_Sort/">双调排序 Bitonic Sort</a>
+          </li>
+        
+          <li>
+            <a href="../../../03/29/Parallel%20Computing%202/">Parallel Computing 2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Ivan Xun Ouyang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
